@@ -6,6 +6,7 @@ for creating symlinks
 
 example:
 cd dotfiles
+
 stow vim
 
 automatically creates symlinks for .vimrc and .vim in $HOME
