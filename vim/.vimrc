@@ -27,6 +27,12 @@ set expandtab
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
+set showmatch " Highlight matching braces/parents/brackets
+set incsearch " find as you type search
+set ignorecase " case insensitive search
+set smartcase " case sensitive when uppercase letters present
+set wildmenu " show shell style completion list
+
 " Numbers
 set number
 set numberwidth=5
@@ -69,9 +75,8 @@ cmap w!! w !sudo tee % >/dev/null
 Bundle 'gmarik/vundle'
 
 Bundle 'L9'
-" Bundle 'FuzzyFinder' "
 Bundle 'scrooloose/nerdtree'
-"Bundle 'Syntastic'"
+Bundle 'Syntastic'
 Bundle 'altercation/vim-colors-solarized' 
 Bundle 'https://github.com/tpope/vim-fugitive' 
 Bundle 'jistr/vim-nerdtree-tabs'
