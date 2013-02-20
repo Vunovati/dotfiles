@@ -1,12 +1,13 @@
 set nocompatible
+set encoding=utf-8
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 set clipboard=unnamed
 
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
+if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal"
+  set t_Co=256
 endif
 
 "color jellybeans
@@ -37,6 +38,9 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 "noremap <C-t> <Esc>:NERDTreeToggle<CR>"
+
+" Powerline
+set laststatus=2   " Always show the statusline
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -80,4 +84,6 @@ Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'Guardian'
 Bundle 'EasyMotion'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'Lokaltog/vim-powerline'
+
 filetype plugin indent on
