@@ -10,7 +10,6 @@ if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome
   set t_Co=256
 endif
 
-"color jellybeans
 color desert
 
 syntax on
@@ -37,7 +36,7 @@ set wildmenu " show shell style completion list
 set number
 set numberwidth=5
 
-" Get off my lawn
+" Dont use arrows in command mode 
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
@@ -55,6 +54,7 @@ let g:html_indent_tags = 'li\|p'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_match_window_bottom = 1
+
 " Working path is the parent directory of the current file "
 let g:ctrlp_working_path_mode = 2
 
@@ -78,9 +78,7 @@ Bundle 'L9'
 Bundle 'Syntastic'
 Bundle 'altercation/vim-colors-solarized' 
 Bundle 'https://github.com/tpope/vim-fugitive' 
-Bundle 'https://github.com/wincent/Command-T.git'
 Bundle 'Solarized'
-Bundle 'The-NERD-Commenter'
 Bundle 'ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'Guardian'
