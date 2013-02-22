@@ -75,12 +75,9 @@ cmap w!! w !sudo tee % >/dev/null
 Bundle 'gmarik/vundle'
 
 Bundle 'L9'
-Bundle 'scrooloose/nerdtree'
 Bundle 'Syntastic'
 Bundle 'altercation/vim-colors-solarized' 
 Bundle 'https://github.com/tpope/vim-fugitive' 
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'closetag.vim'
 Bundle 'https://github.com/wincent/Command-T.git'
 Bundle 'Solarized'
 Bundle 'The-NERD-Commenter'
