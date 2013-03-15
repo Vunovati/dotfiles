@@ -1,5 +1,9 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
+TERM="xterm-256color" # Fixes color issues
+eval `dircolors /home/evlaada/dotfiles/colors/dircolors.256dark`
+export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-terminal)
+export TERM=screen-256color       # for a tmux -2 session (also for screen)
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/

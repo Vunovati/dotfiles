@@ -7,10 +7,12 @@ call vundle#rc()
 set clipboard=unnamed
 
 if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal"
-  set t_Co=256
+  "set t_Co=256
+  set t_Co=16
 endif
 
-color desert
+set background="dark"
+color solarized
 
 syntax on
 " Also switch on highlighting the last used search pattern.
