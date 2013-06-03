@@ -9,7 +9,7 @@ export TERM=screen-256color       # for a tmux -2 session (also for screen)
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="af-magic"
 #ZSH_THEME="gallois:"
 
 # Example aliases
@@ -38,15 +38,13 @@ alias vi="vim"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git svn mvn ant debian sublime rvm ruby vagrant)
+plugins=(git svn mvn ant rvm tmux)
 
 source $ZSH/oh-my-zsh.sh
 # Set correct term for tmux so solarized theme works in vim
 alias tmux="TERM=screen-256color-bce tmux"
 . ~/aliases.zsh
 
-# Customize to your needs...
-# export PATH=/opt/apache-maven-2.2.1/bin:/usr/lib/jvm/jdk1.6.0_32/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 source ~/.zshenv
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

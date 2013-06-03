@@ -87,5 +87,6 @@ Bundle 'Guardian'
 Bundle 'EasyMotion'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'surround.vim'
 
 filetype plugin indent on

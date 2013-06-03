@@ -47,3 +47,17 @@
 tags
 .netrwhist
 view
+*.swp
+
+# IntelliJ IDEA
+.idea
+*.iml
+
+# Eclipse
+.classpath
+
+# Maven
+target
+
+# VCS
+.svn
