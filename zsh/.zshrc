@@ -38,9 +38,11 @@ alias vi="vim"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git svn mvn ant rvm tmux)
+plugins=(git svn)
 
 source $ZSH/oh-my-zsh.sh
+# fix for edit command line being overriden by key-bindings
+source $ZSH/lib/edit-command-line.zsh
 # Set correct term for tmux so solarized theme works in vim
 alias tmux="TERM=screen-256color-bce tmux"
 . ~/aliases.zsh
