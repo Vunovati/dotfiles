@@ -61,3 +61,6 @@ target
 
 # VCS
 .svn
+
+# Database
+*.dat

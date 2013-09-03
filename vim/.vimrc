@@ -48,6 +48,7 @@ nnoremap <Down> :echoe "Use j"<CR>
 
 " Powerline
 set laststatus=2   " Always show the statusline
+let g:Powerline_symbols = 'fancy'
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -88,5 +89,6 @@ Bundle 'EasyMotion'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'surround.vim'
+Bundle 'tpope/vim-rails'
 
 filetype plugin indent on
