@@ -1,0 +1,15 @@
+[http]
+[user]
+  name = Vladimir Adamic
+  email = vladimir.adamic@gmail.com
+[core]
+  editor = vim
+  excludesfile = ~/.gitignore_global
+	autocrlf = input
+[merge]
+  tool = vimdiff
+[color]
+  ui = true
+[alias]
+	graph = log --graph --all --pretty=format:'%Cred%h%Creset - %Cgreen(%cr)%Creset %s%C(yellow)%d%Creset' --abbrev-commit --date=relative
+	standup = log --since '1 day ago' --oneline --author vladimir.adamic@gmail.com

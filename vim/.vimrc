@@ -7,10 +7,12 @@ call vundle#rc()
 set clipboard=unnamed
 
 if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal"
-  set t_Co=256
+  "set t_Co=256
+  set t_Co=16
 endif
 
-color desert
+set background=light
+color solarized
 
 syntax on
 " Also switch on highlighting the last used search pattern.
@@ -46,6 +48,7 @@ nnoremap <Down> :echoe "Use j"<CR>
 
 " Powerline
 set laststatus=2   " Always show the statusline
+let g:Powerline_symbols = 'fancy'
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -85,5 +88,7 @@ Bundle 'Guardian'
 Bundle 'EasyMotion'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'surround.vim'
+Bundle 'tpope/vim-rails'
 
 filetype plugin indent on
