@@ -41,8 +41,6 @@ alias vi="vim"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-# fix for edit command line being overriden by key-bindings
-source $ZSH/lib/edit-command-line.zsh
 # Set correct term for tmux so solarized theme works in vim
 alias tmux="TERM=screen-256color-bce tmux"
 . ~/aliases.zsh

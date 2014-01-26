@@ -13,3 +13,6 @@
   tool = vimdiff
 [color]
   ui = true
+[alias]
+	graph = log --graph --all --pretty=format:'%Cred%h%Creset - %Cgreen(%cr)%Creset %s%C(yellow)%d%Creset' --abbrev-commit --date=relative
+	standup = log --since '1 day ago' --oneline --author vladimir.adamic@ericsson.com

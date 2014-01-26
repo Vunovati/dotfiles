@@ -28,7 +28,6 @@
 
 # Logs and databases 
 *.log
-*.sql
 *.sqlite
 
 # Images
@@ -48,6 +47,7 @@ tags
 .netrwhist
 view
 *.swp
+.vim
 
 # IntelliJ IDEA
 .idea

@@ -11,7 +11,7 @@ if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome
   set t_Co=16
 endif
 
-set background="dark"
+set background=light
 color solarized
 
 syntax on
