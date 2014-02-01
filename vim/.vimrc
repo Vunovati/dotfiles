@@ -98,5 +98,6 @@ Bundle 'thoughtbot/vim-rspec'
 Bundle 'jgdavey/tslime.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'ri-viewer'
 
 filetype plugin indent on
