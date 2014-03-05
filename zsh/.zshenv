@@ -1,4 +1,4 @@
-export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_32
+export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))
 export M2_HOME=/opt/apache-maven-2.2.1
 export M2=/opt/apache-maven-2.2.1/bin
 export PATH=$M2:$JAVA_HOME/bin:$PATH
