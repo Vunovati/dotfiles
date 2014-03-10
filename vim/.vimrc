@@ -45,10 +45,10 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 "noremap <C-t> <Esc>:NERDTreeToggle<CR>"
-
-" Powerline
-set laststatus=2   " Always show the statusline
-let g:Powerline_symbols = 'fancy'
+" airline
+set laststatus=2
+let g:airline_powerline_fonts = 0
+let g:airline_theme='dark'
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -91,7 +91,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'https://github.com/tpope/vim-fugitive' 
 Bundle 'Solarized'
 Bundle 'ctrlp.vim'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'surround.vim'
 Bundle 'tpope/vim-rails'
 Bundle 'thoughtbot/vim-rspec'
