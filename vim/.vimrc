@@ -106,5 +106,6 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'ri-viewer'
 Bundle 'myusuf3/numbers.vim'
+Bundle 'christoomey/vim-tmux-navigator'
 
 filetype plugin indent on
