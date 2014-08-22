@@ -115,6 +115,10 @@ Bundle 'burnettk/vim-angular'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'JavaScript-Indent'
 Bundle 'claco/jasmine.vim'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'marijnh/tern_for_vim'
 
+" disable tern documentation view
+autocmd BufEnter * set completeopt-=preview
 
 filetype plugin indent on
