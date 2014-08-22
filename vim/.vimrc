@@ -107,5 +107,14 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'ri-viewer'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'mattn/emmet-vim'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle "pangloss/vim-javascript"
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'burnettk/vim-angular'
+Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'JavaScript-Indent'
+Bundle 'claco/jasmine.vim'
+
 
 filetype plugin indent on

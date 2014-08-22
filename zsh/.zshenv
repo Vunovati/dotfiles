@@ -7,3 +7,4 @@ export LD_LIBRARY_PATH="${ORACLE_HOME}/lib"
 export TNS_ADMIN="${ORACLE_HOME}"
 export EDITOR=vim
 export BROWSER=google-chrome
+export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
