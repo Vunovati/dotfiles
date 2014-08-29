@@ -107,5 +107,18 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'ri-viewer'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'mattn/emmet-vim'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle "pangloss/vim-javascript"
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'burnettk/vim-angular'
+Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'JavaScript-Indent'
+Bundle 'claco/jasmine.vim'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'marijnh/tern_for_vim'
+
+" disable tern documentation view
+autocmd BufEnter * set completeopt-=preview
 
 filetype plugin indent on
