@@ -1,8 +1,7 @@
 [http]
-#  proxy = http://s-proxy.ericsson.se:8080
 [user]
-  name = evlaada
-  email = vladimir.adamic@ericsson.com
+  name = Vladimir Adamic
+  email = vladimir.adamic@gmail.com
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
