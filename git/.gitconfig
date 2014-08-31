@@ -1,4 +1,5 @@
 [http]
+#  proxy = http://s-proxy.ericsson.se:8080
 [user]
   name = Vladimir Adamic
   email = vladimir.adamic@gmail.com
