@@ -12,6 +12,7 @@ if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome
 endif
 
 set background=dark
+let g:solarized_termtrans = 1
 color solarized
 
 syntax on
@@ -100,5 +101,6 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'ri-viewer'
 Bundle 'myusuf3/numbers.vim'
+Bundle 'christoomey/vim-tmux-navigator'
 
 filetype plugin indent on
