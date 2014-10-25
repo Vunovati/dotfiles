@@ -12,6 +12,7 @@ if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome
 endif
 
 set background=dark
+let g:solarized_termtrans = 1
 color solarized
 
 syntax on
