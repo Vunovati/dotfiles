@@ -2,7 +2,7 @@ set nocompatible
 set encoding=utf-8
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 set clipboard=unnamed
 
@@ -12,6 +12,7 @@ if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome
 endif
 
 set background=dark
+let g:solarized_termtrans = 1
 color solarized
 
 syntax on
