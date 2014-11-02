@@ -96,6 +96,9 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
+" send slime to a tmux pane
+let g:slime_target = "tmux"
+
 " :w!! saves a file as root
 cmap w!! w !sudo tee % >/dev/null
 
