@@ -88,6 +88,17 @@ map <Leader>a :call RunAllSpecs()<CR>
 " :w!! saves a file as root
 cmap w!! w !sudo tee % >/dev/null
 
+" send selwction to tmux window C-c C-c
+let g:slime_target = "tmux"
+
+" speed up macros
+set lazyredraw
+" Syntax coloring lines that are too long just slows down the world
+set synmaxcol=128
+set ttyfast " u got a fast terminal
+set ttyscroll=3
+
+
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
@@ -118,6 +129,7 @@ Bundle 'JavaScript-Indent'
 Bundle 'claco/jasmine.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'marijnh/tern_for_vim'
+Bundle 'jpalardy/vim-slime'
 
 " disable tern documentation view
 autocmd BufEnter * set completeopt-=preview
