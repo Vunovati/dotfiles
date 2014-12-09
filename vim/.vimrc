@@ -54,10 +54,9 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
-"noremap <C-t> <Esc>:NERDTreeToggle<CR>"
 " airline
 set laststatus=2
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline_theme='dark'
 
 " Treat <li> and <p> tags like the block tags they are
@@ -147,3 +146,4 @@ Bundle 'Raimondi/delimitMate'
 autocmd BufEnter * set completeopt-=preview
 
 filetype plugin indent on
+
