@@ -150,3 +150,4 @@ autocmd BufEnter * set completeopt-=preview
 
 filetype plugin indent on
 
+highlight SignColumn ctermbg=black
