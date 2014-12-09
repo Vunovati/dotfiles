@@ -35,6 +35,9 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+" Add spell checking for commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
