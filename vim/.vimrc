@@ -15,6 +15,11 @@ set background=dark
 let g:solarized_termtrans = 1
 color solarized
 
+set timeoutlen=1000 ttimeoutlen=0
+
+" Explore conflicts with plugins beginning with E, ambiguous command
+command E Ex
+
 " indent guides
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
