@@ -15,15 +15,19 @@ set background=dark
 let g:solarized_termtrans = 1
 color solarized
 
+" indent guides
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
+
 syntax on
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
     syntax on
 endif
 
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
+" Softtabs, 4 spaces
+set tabstop=4
+set shiftwidth=4
 set expandtab
 
 " Display extra whitespace
@@ -98,6 +102,8 @@ set synmaxcol=128
 set ttyfast " u got a fast terminal
 set ttyscroll=3
 
+" map C-c to the line splitting command - useful in delimitMate
+imap <C-c> <CR><Esc>O
 
 " let Vundle manage Vundle
 " required! 
@@ -130,6 +136,7 @@ Bundle 'claco/jasmine.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'marijnh/tern_for_vim'
 Bundle 'jpalardy/vim-slime'
+Bundle 'Raimondi/delimitMate'
 
 " disable tern documentation view
 autocmd BufEnter * set completeopt-=preview
