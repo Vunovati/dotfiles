@@ -151,6 +151,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'marijnh/tern_for_vim'
 Bundle 'jpalardy/vim-slime'
 Bundle 'Raimondi/delimitMate'
+Bundle 'tpope/vim-unimpaired'
 
 " disable tern documentation view
 autocmd BufEnter * set completeopt-=preview
