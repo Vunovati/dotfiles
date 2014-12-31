@@ -47,6 +47,7 @@ tags
 .netrwhist
 view
 *.swp
+*.swo
 .vim
 
 # IntelliJ IDEA
