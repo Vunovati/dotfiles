@@ -19,3 +19,4 @@ export TERM=screen-256color       # for a tmux -2 session (also for screen)
 alias tmux="TERM=screen-256color-bce tmux"
 . ~/aliases.zsh
 
+[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
