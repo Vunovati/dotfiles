@@ -15,7 +15,7 @@ set background=dark
 let g:solarized_termtrans = 1
 color solarized
 
-set timeoutlen=1000 ttimeoutlen=0
+set timeoutlen=1000 ttimeoutlen=10
 
 " Explore conflicts with plugins beginning with E, ambiguous command
 command E Ex
@@ -59,7 +59,7 @@ nnoremap <Down> :echoe "Use j"<CR>
 
 " airline
 set laststatus=2
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline_theme='dark'
 
 " Treat <li> and <p> tags like the block tags they are
@@ -95,9 +95,6 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
-
-" send slime to a tmux pane
-let g:slime_target = "tmux"
 
 " :w!! saves a file as root
 cmap w!! w !sudo tee % >/dev/null
@@ -150,11 +147,11 @@ Bundle 'burnettk/vim-angular'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'JavaScript-Indent'
 Bundle 'claco/jasmine.vim'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'marijnh/tern_for_vim'
 Bundle 'jpalardy/vim-slime'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'Valloric/YouCompleteMe'
 
 " disable tern documentation view
 autocmd BufEnter * set completeopt-=preview
