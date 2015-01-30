@@ -164,7 +164,6 @@ Bundle 'mattn/emmet-vim'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle "pangloss/vim-javascript"
 Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'burnettk/vim-angular'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'JavaScript-Indent'
 Bundle 'claco/jasmine.vim'
