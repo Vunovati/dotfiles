@@ -120,14 +120,14 @@ let g:slime_target = "tmux"
 " setup Syntastic to automatically load errors into the location list
 let g:syntastic_always_populate_loc_list = 1
 " By default, Syntastic does not check for errors when a file is loaded
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 
 " speed up macros
 set lazyredraw
 " Syntax coloring lines that are too long just slows down the world
-set synmaxcol=128
+set synmaxcol=512
 set ttyfast " u got a fast terminal
 set ttyscroll=3
 
