@@ -47,6 +47,11 @@ set ignorecase " case insensitive search
 set smartcase " case sensitive when uppercase letters present
 set wildmenu " show shell style completion list
 
+" sets 'path' to:
+" " - the directory of the current file
+" " - every subdirectory of the current directory
+set path=.,**
+
 " Numbers
 set number
 set numberwidth=5
