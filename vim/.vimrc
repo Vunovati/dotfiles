@@ -107,6 +107,13 @@ map <Leader>a :call RunAllSpecs()<CR>
 " :w!! saves a file as root
 cmap w!! w !sudo tee % >/dev/null
 
+" Ex commands leader key shortcuts
+map \g :Gstatus<cr>
+map \e :Explore<cr>
+map \s :Sexplore<cr>
+map \v :Vexplore<cr>
+map \f :find 
+
 " send selwction to tmux window C-c C-c
 let g:slime_target = "tmux"
 
