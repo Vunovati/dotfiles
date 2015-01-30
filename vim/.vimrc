@@ -54,7 +54,10 @@ set path=.,**
 
 " Numbers
 set number
-set numberwidth=5
+set numberwidth=4
+
+" highlight current line
+set cursorline
 
 " Dont use arrows in command mode 
 nnoremap <Left> :echoe "Use h"<CR>
