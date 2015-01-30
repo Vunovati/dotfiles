@@ -119,6 +119,19 @@ set ttyscroll=3
 " map C-c to the line splitting command - useful in delimitMate
 imap <C-c> <CR><Esc>O
 
+" Run fixmyjs
+noremap <Leader><Leader>f :Fixmyjs<CR>
+
+autocmd FileType javascript noremap <buffer>  <c-b> :call JsBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-b> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-b> :call CSSBeautify()<cr>
+" for visual mode
+autocmd FileType javascript vnoremap <buffer>  <c-b> :call RangeJsBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <c-b> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <c-b> :call RangeCSSBeautify()<cr>
+
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
@@ -152,6 +165,8 @@ Bundle 'marijnh/tern_for_vim'
 Bundle 'jpalardy/vim-slime'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'ruanyl/vim-fixmyjs'
+Bundle 'maksimr/vim-jsbeautify'
 
 " disable tern documentation view
 autocmd BufEnter * set completeopt-=preview
