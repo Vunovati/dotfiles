@@ -96,6 +96,24 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_extensions = ['funky']
 nnoremap <Space>fu :CtrlPFunky<Cr>
 
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" bind \ (backward slash) to grep shortcut
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 
 " vim-rspec mappings
@@ -112,7 +130,8 @@ map \g :Gstatus<cr>
 map \e :Explore<cr>
 map \s :Sexplore<cr>
 map \v :Vexplore<cr>
-map \f :find 
+map \f :Ag 
+map \b :Gblame<cr>
 
 " send selwction to tmux window C-c C-c
 let g:slime_target = "tmux"
