@@ -151,6 +151,7 @@ Bundle 'marijnh/tern_for_vim'
 Bundle 'jpalardy/vim-slime'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-sleuth'
 Bundle 'Valloric/YouCompleteMe'
 
 " disable tern documentation view
