@@ -15,7 +15,7 @@ set background=dark
 let g:solarized_termtrans = 1
 color solarized
 
-set timeoutlen=1000 ttimeoutlen=10
+set timeoutlen=1000 ttimeoutlen=0
 
 " Explore conflicts with plugins beginning with E, ambiguous command
 command E Ex
@@ -47,9 +47,17 @@ set ignorecase " case insensitive search
 set smartcase " case sensitive when uppercase letters present
 set wildmenu " show shell style completion list
 
+" sets 'path' to:
+" " - the directory of the current file
+" " - every subdirectory of the current directory
+set path=.,**
+
 " Numbers
 set number
-set numberwidth=5
+set numberwidth=4
+
+" highlight current line
+set cursorline
 
 " Dont use arrows in command mode 
 nnoremap <Left> :echoe "Use h"<CR>
@@ -88,6 +96,24 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_extensions = ['funky']
 nnoremap <Space>fu :CtrlPFunky<Cr>
 
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" bind \ (backward slash) to grep shortcut
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 
 " vim-rspec mappings
@@ -99,25 +125,46 @@ map <Leader>a :call RunAllSpecs()<CR>
 " :w!! saves a file as root
 cmap w!! w !sudo tee % >/dev/null
 
+" Ex commands leader key shortcuts
+map \g :Gstatus<cr>
+map \e :Explore<cr>
+map \s :Sexplore<cr>
+map \v :Vexplore<cr>
+map \f :Ag 
+map \b :Gblame<cr>
+
 " send selwction to tmux window C-c C-c
 let g:slime_target = "tmux"
 
 " setup Syntastic to automatically load errors into the location list
 let g:syntastic_always_populate_loc_list = 1
 " By default, Syntastic does not check for errors when a file is loaded
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 
 " speed up macros
 set lazyredraw
 " Syntax coloring lines that are too long just slows down the world
-set synmaxcol=128
+set synmaxcol=512
 set ttyfast " u got a fast terminal
 set ttyscroll=3
 
 " map C-c to the line splitting command - useful in delimitMate
 imap <C-c> <CR><Esc>O
+
+" Run fixmyjs
+noremap <Leader><Leader>f :Fixmyjs<CR>
+
+autocmd FileType javascript noremap <buffer>  <c-b> :call JsBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-b> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-b> :call CSSBeautify()<cr>
+" for visual mode
+autocmd FileType javascript vnoremap <buffer>  <c-b> :call RangeJsBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <c-b> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <c-b> :call RangeCSSBeautify()<cr>
 
 " let Vundle manage Vundle
 " required! 
@@ -143,7 +190,6 @@ Bundle 'mattn/emmet-vim'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle "pangloss/vim-javascript"
 Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'burnettk/vim-angular'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'JavaScript-Indent'
 Bundle 'claco/jasmine.vim'
@@ -151,6 +197,8 @@ Bundle 'marijnh/tern_for_vim'
 Bundle 'jpalardy/vim-slime'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'ruanyl/vim-fixmyjs'
+Bundle 'maksimr/vim-jsbeautify'
 Bundle 'tpope/vim-sleuth'
 Bundle 'Valloric/YouCompleteMe'
 
