@@ -1,11 +1,9 @@
-[http]
-#  proxy = http://s-proxy.ericsson.se:8080
 [user]
   name = Vladimir Adamic
   email = vladimir.adamic@gmail.com
 [core]
   editor = vim
-  excludesfile = ~/.gitignore_global
+	excludesfile = /Users/ovca/.gitignore_global
 	autocrlf = input
 [merge]
   tool = vimdiff
@@ -14,6 +12,17 @@
 [alias]
 	graph = log --graph --all --pretty=format:'%Cred%h%Creset - %Cgreen(%cr)%Creset %s%C(yellow)%d%Creset' --abbrev-commit --date=relative
 	standup = log --since '1 day ago' --oneline --author vladimir.adamic@gmail.com
+	last = for-each-ref --sort=-committerdate refs/heads/
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

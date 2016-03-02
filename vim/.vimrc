@@ -7,22 +7,23 @@ call vundle#rc()
 set clipboard=unnamed
 
 if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal"
-  "set t_Co=256
-  set t_Co=16
+  set t_Co=256
+  "set t_Co=16
 endif
 
 set background=dark
-let g:solarized_termtrans = 1
-color solarized
 
 set timeoutlen=1000 ttimeoutlen=0
 
+" Persistent undo
+set undofile
+set undodir=$HOME/.vim/undo
+
+set undolevels=1000
+set undoreload=10000
+
 " Explore conflicts with plugins beginning with E, ambiguous command
 command E Ex
-
-" indent guides
-hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=darkgrey
 
 syntax on
 " Also switch on highlighting the last used search pattern.
@@ -54,10 +55,11 @@ set path=.,**
 
 " Numbers
 set number
+set relativenumber
 set numberwidth=4
 
 " highlight current line
-set cursorline
+"set cursorline
 
 " Dont use arrows in command mode 
 nnoremap <Left> :echoe "Use h"<CR>
@@ -67,8 +69,11 @@ nnoremap <Down> :echoe "Use j"<CR>
 
 " airline
 set laststatus=2
-let g:airline_powerline_fonts = 0
-let g:airline_theme='dark'
+if has("gui_running")
+  let g:airline_powerline_fonts = 1
+else
+  let g:airline_powerline_fonts = 0
+endif
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -95,6 +100,8 @@ let g:ctrlp_custom_ignore = {
 
 let g:ctrlp_extensions = ['funky']
 nnoremap <Space>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -131,24 +138,44 @@ map \e :Explore<cr>
 map \s :Sexplore<cr>
 map \v :Vexplore<cr>
 map \f :Ag 
+map \u :buffer  
 map \b :Gblame<cr>
+map \w :w<cr>
 
 " send selwction to tmux window C-c C-c
 let g:slime_target = "tmux"
 
+" use only jshint if no jscs file provided
+"autocmd FileType javascript let b:syntastic_checkers = findfile('.jscsrc', '.;') != '' ? ['jscs', 'jshint'] : ['jshint']
+" runs all checkers that apply to the current filetype
+"let g:syntastic_aggregate_errors = 1
 " setup Syntastic to automatically load errors into the location list
-let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_always_populate_loc_list = 1
 " By default, Syntastic does not check for errors when a file is loaded
-let g:syntastic_check_on_open = 0
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
+"let g:syntastic_check_on_open = 0
+" let g:syntastic_error_symbol = "✗"
+" let g:syntastic_warning_symbol = "⚠"
+
+let g:neomake_javascript_jshint_maker = {
+    \ 'args': ['--verbose'],
+    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+    \ }
+
+let g:neomake_javascript_jscs_maker = {
+    \ 'exe': 'jscs',
+    \ 'args': ['--no-color', '--reporter', 'inline'],
+    \ 'errorformat': '%f: line %l\, col %c\, %m',
+    \ }
+
+let g:neomake_javascript_enabled_makers = ['jscs', 'eslint']
+autocmd! BufWritePost * Neomake
 
 " speed up macros
-set lazyredraw
+" set lazyredraw
 " Syntax coloring lines that are too long just slows down the world
-set synmaxcol=512
+set synmaxcol=128
 set ttyfast " u got a fast terminal
-set ttyscroll=3
+" set ttyscroll=3
 
 " map C-c to the line splitting command - useful in delimitMate
 imap <C-c> <CR><Esc>O
@@ -166,15 +193,17 @@ autocmd FileType javascript vnoremap <buffer>  <c-b> :call RangeJsBeautify()<cr>
 autocmd FileType html vnoremap <buffer> <c-b> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-b> :call RangeCSSBeautify()<cr>
 
+" turn off default mapping of :JsDoc
+let g:jsdoc_default_mapping=0
+
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
 
+"Bundle 'Vundle.vim'
 Bundle 'L9'
-Bundle 'Syntastic'
-Bundle 'altercation/vim-colors-solarized' 
-Bundle 'https://github.com/tpope/vim-fugitive' 
-Bundle 'Solarized'
+"Bundle 'Syntastic'
+Bundle 'https://github.com/tpope/vim-fugitive'
 Bundle 'ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'surround.vim'
@@ -184,13 +213,10 @@ Bundle 'jgdavey/tslime.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'ri-viewer'
-Bundle 'myusuf3/numbers.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'mattn/emmet-vim'
 Bundle 'jelera/vim-javascript-syntax'
-Bundle "pangloss/vim-javascript"
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'pangloss/vim-javascript'
 Bundle 'JavaScript-Indent'
 Bundle 'claco/jasmine.vim'
 Bundle 'marijnh/tern_for_vim'
@@ -200,7 +226,16 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'ruanyl/vim-fixmyjs'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'tpope/vim-sleuth'
+Bundle 'tmux-plugins/vim-tmux-focus-events'
+Bundle 'heavenshell/vim-jsdoc'
+Bundle 'ntpeters/vim-better-whitespace'
+Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'Valloric/YouCompleteMe'
+Plugin 'chriskempson/base16-vim'
+Plugin 'benekastah/neomake'
+Plugin 'editorconfig/editorconfig-vim'
+Bundle 'mxw/vim-jsx'
+Bundle 'vim-airline/vim-airline-themes'
 
 " disable tern documentation view
 autocmd BufEnter * set completeopt-=preview
@@ -209,4 +244,11 @@ let g:tern_show_argument_hints='on_hold'
 
 filetype plugin indent on
 
-highlight SignColumn ctermbg=black
+" To ensure that this plugin works well with Tim Pope's fugitive
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" enable jsx syntax highlighting for non jsx files
+let g:jsx_ext_required = 0
+
+colorscheme base16-solarized
+let g:airline_theme='base16'

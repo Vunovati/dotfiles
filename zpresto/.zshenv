@@ -11,12 +11,18 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
 fi
 
 
-export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))
-export M2_HOME=/opt/apache-maven-2.2.1
-export M2=/opt/apache-maven-2.2.1/bin
-export PATH=$M2:$JAVA_HOME/bin:$PATH
-export ORACLE_HOME="/usr/lib/oracle/11.2/client64"
-export LD_LIBRARY_PATH="${ORACLE_HOME}/lib"
-export TNS_ADMIN="${ORACLE_HOME}"
+export JAVA_HOME=$(/usr/libexec/java_home)
+export ANT_HOME=$HOME/bin/apache-ant-1.9.4
+export ANDROID_HOME=$HOME/bin/android-sdk-macosx
+export ANDROID_TOOLS=$ANDROID_HOME/tools
+export ANDROID_PLATFORM_TOOLS=$ANDROID_HOME/platform-tools
+export ANDROID_SDK=$ANDROID_HOME
+export ANDROID_NDK=$ANDROID_HOME/android-ndk-r10e
+export SHOUTEM_TOOLKIT=$HOME/Documents/Code/BuildSystem/ShoutEmToolkit
+export PATH=$SHOUTEM_TOOLKIT:$JAVA_HOME/bin:$ANT_HOME/bin:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$PATH
 export EDITOR=vim
-export BROWSER=google-chrome
+
+# pip should only run if there is a virtualenv currently activated
+export PIP_REQUIRE_VIRTUALENV=true
+# # cache pip-installed packages to avoid re-downloading
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache

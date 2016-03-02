@@ -9,7 +9,7 @@
 
 # Packages 
 *.7z
-*.jar
+#*.jar
 *.rar
 *.zip
 *.gz
