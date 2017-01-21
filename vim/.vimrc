@@ -11,7 +11,10 @@ if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome
   "set t_Co=16
 endif
 
-set background=dark
+" gui colors if running iTerm
+if $TERM_PROGRAM =~ "iTerm"
+  set termguicolors
+endif
 
 set timeoutlen=1000 ttimeoutlen=0
 
@@ -35,6 +38,9 @@ endif
 set tabstop=4
 set shiftwidth=4
 set expandtab
+
+" Make 100 character limit visible
+set colorcolumn=100
 
 " Add spell checking for commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
@@ -83,8 +89,10 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_match_window_bottom = 1
 
+map <c-b> :CtrlPBuffer<cr>
+
 " Working path is the parent directory of the current file "
-let g:ctrlp_working_path_mode = 2
+let g:ctrlp_working_path_mode = 'ra'
 
 " Excluding version control directories
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
@@ -141,6 +149,7 @@ map \f :Ag
 map \u :buffer  
 map \b :Gblame<cr>
 map \w :w<cr>
+map \\ :Neomake<cr>
 
 " send selwction to tmux window C-c C-c
 let g:slime_target = "tmux"
@@ -168,10 +177,11 @@ let g:neomake_javascript_jscs_maker = {
     \ }
 
 let g:neomake_javascript_enabled_makers = ['jscs', 'eslint']
+" run neomake on each buffer save
 autocmd! BufWritePost * Neomake
 
 " speed up macros
-" set lazyredraw
+set lazyredraw
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=128
 set ttyfast " u got a fast terminal
@@ -183,16 +193,6 @@ imap <C-c> <CR><Esc>O
 " Run fixmyjs
 noremap <Leader><Leader>f :Fixmyjs<CR>
 
-autocmd FileType javascript noremap <buffer>  <c-b> :call JsBeautify()<cr>
-" for html
-autocmd FileType html noremap <buffer> <c-b> :call HtmlBeautify()<cr>
-" for css or scss
-autocmd FileType css noremap <buffer> <c-b> :call CSSBeautify()<cr>
-" for visual mode
-autocmd FileType javascript vnoremap <buffer>  <c-b> :call RangeJsBeautify()<cr>
-autocmd FileType html vnoremap <buffer> <c-b> :call RangeHtmlBeautify()<cr>
-autocmd FileType css vnoremap <buffer> <c-b> :call RangeCSSBeautify()<cr>
-
 " turn off default mapping of :JsDoc
 let g:jsdoc_default_mapping=0
 
@@ -200,7 +200,7 @@ let g:jsdoc_default_mapping=0
 " required! 
 Bundle 'gmarik/vundle'
 
-"Bundle 'Vundle.vim'
+Bundle 'Vundle.vim'
 Bundle 'L9'
 "Bundle 'Syntastic'
 Bundle 'https://github.com/tpope/vim-fugitive'
@@ -232,10 +232,14 @@ Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'chriskempson/base16-vim'
-Plugin 'benekastah/neomake'
+Plugin 'neomake/neomake'
 Plugin 'editorconfig/editorconfig-vim'
 Bundle 'mxw/vim-jsx'
 Bundle 'vim-airline/vim-airline-themes'
+Bundle 'facebook/vim-flow'
+
+" disable flowtype by default
+let g:flow#enable = 0
 
 " disable tern documentation view
 autocmd BufEnter * set completeopt-=preview
@@ -250,5 +254,35 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " enable jsx syntax highlighting for non jsx files
 let g:jsx_ext_required = 0
 
-colorscheme base16-solarized
+colorscheme base16-materia
 let g:airline_theme='base16'
+
+let g:tmux_navigator_no_mappings = 1
+
+" allows cursor change in tmux mode
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" Go to tab by number
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" Tmux navigation
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
