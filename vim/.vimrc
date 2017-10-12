@@ -2,8 +2,6 @@ set nocompatible
 set encoding=utf-8
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
 set clipboard=unnamed
 
 if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal"
@@ -39,14 +37,11 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
-" Make 100 character limit visible
-set colorcolumn=100
-
 " Add spell checking for commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·
+" set list listchars=tab:»·,trail:·
 
 set showmatch " Highlight matching braces/parents/brackets
 set incsearch " find as you type search
@@ -74,15 +69,11 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 " airline
-set laststatus=2
-if has("gui_running")
-  let g:airline_powerline_fonts = 1
-else
-  let g:airline_powerline_fonts = 0
-endif
+" set laststatus=2
+" let g:airline_powerline_fonts = 0
 
 " Treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags = 'li\|p'
+" let g:html_indent_tags = 'li\|p'
 
 " Invoke CtrlP in normal mode "
 let g:ctrlp_map = '<c-p>'
@@ -94,6 +85,12 @@ map <c-b> :CtrlPBuffer<cr>
 " Working path is the parent directory of the current file "
 let g:ctrlp_working_path_mode = 'ra'
 
+syntax enable
+"set background=dark
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 " Excluding version control directories
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
 
@@ -103,7 +100,7 @@ let g:ctrlp_max_depth = 20
 " Ignore some folders and files for CtrlP indexing
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
-  \ 'file': '\.so$\|\.dat$|\.DS_Store$|\.class$\|\.jar$|\.war$|\.ear$|\.iml$'
+  \ 'file': '\.so$\|\.dat$|\.DS_Store$|\.class$\|\.jar$|\.war$|\.ear$|\.iml$|\.map$'
   \ }
 
 let g:ctrlp_extensions = ['funky']
@@ -126,16 +123,13 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
+" Trusqoyomi used for typescript
+autocmd FileType typescript nmap <buffer> <F6> <Plug>(TsuquyomiRenameSymbol)
+autocmd FileType typescript nmap <buffer> <S-F6> <Plug>(TsuquyomiRenameSymbolC)
+" let g:tsuquyomi_disable_default_mappings = 1
+
 " bind \ (backward slash) to grep shortcut
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
-
-" vim-rspec mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
 
 " :w!! saves a file as root
 cmap w!! w !sudo tee % >/dev/null
@@ -149,125 +143,55 @@ map \f :Ag
 map \u :buffer  
 map \b :Gblame<cr>
 map \w :w<cr>
-map \\ :Neomake<cr>
 
-" send selwction to tmux window C-c C-c
-let g:slime_target = "tmux"
+" toggle between dark and light background
+nnoremap  <leader>B :<c-u>exe "colors" (g:colors_name =~# "dark"
+    \ ? substitute(g:colors_name, 'dark', 'light', '')
+    \ : substitute(g:colors_name, 'light', 'dark', '')
+    \ )<cr>
 
-" use only jshint if no jscs file provided
-"autocmd FileType javascript let b:syntastic_checkers = findfile('.jscsrc', '.;') != '' ? ['jscs', 'jshint'] : ['jshint']
-" runs all checkers that apply to the current filetype
-"let g:syntastic_aggregate_errors = 1
-" setup Syntastic to automatically load errors into the location list
-"let g:syntastic_always_populate_loc_list = 1
-" By default, Syntastic does not check for errors when a file is loaded
-"let g:syntastic_check_on_open = 0
-" let g:syntastic_error_symbol = "✗"
-" let g:syntastic_warning_symbol = "⚠"
 
-let g:neomake_javascript_jshint_maker = {
-    \ 'args': ['--verbose'],
-    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
-    \ }
+" tune the contrast level
+fun! Solarized8Contrast(delta)
+  let l:schemes = map(["_low", "_flat", "", "_high"], '"solarized8_".(&background).v:val')
+  exe "colors" l:schemes[((a:delta+index(l:schemes, g:colors_name)) % 4 + 4) % 4]
+endf
 
-let g:neomake_javascript_jscs_maker = {
-    \ 'exe': 'jscs',
-    \ 'args': ['--no-color', '--reporter', 'inline'],
-    \ 'errorformat': '%f: line %l\, col %c\, %m',
-    \ }
+nmap <leader>- :<c-u>call Solarized8Contrast(-v:count1)<cr>
+nmap <leader>+ :<c-u>call Solarized8Contrast(+v:count1)<cr>
 
-let g:neomake_javascript_enabled_makers = ['jscs', 'eslint']
-" run neomake on each buffer save
-autocmd! BufWritePost * Neomake
+let g:ale_sign_column_always = 1
+let g:ale_linters = {
+      \   'javascript': ['eslint'],
+      \   'typescript': ['tslint'],
+      \   'json': ['jsonlint'],
+      \}
 
-" speed up macros
-set lazyredraw
-" Syntax coloring lines that are too long just slows down the world
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['typescript'] = ['prettier']
+let g:ale_fix_on_save = 0
+let g:ale_javascript_prettier_options = '--single-quote --use-tabs --print-width 100'
+
 set synmaxcol=128
 set ttyfast " u got a fast terminal
 " set ttyscroll=3
 
-" map C-c to the line splitting command - useful in delimitMate
-imap <C-c> <CR><Esc>O
-
-" Run fixmyjs
-noremap <Leader><Leader>f :Fixmyjs<CR>
-
-" turn off default mapping of :JsDoc
-let g:jsdoc_default_mapping=0
-
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
-
-Bundle 'Vundle.vim'
-Bundle 'L9'
-"Bundle 'Syntastic'
-Bundle 'https://github.com/tpope/vim-fugitive'
-Bundle 'ctrlp.vim'
-Bundle 'bling/vim-airline'
-Bundle 'surround.vim'
-Bundle 'tpope/vim-rails'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'jgdavey/tslime.vim'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'ri-viewer'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'mattn/emmet-vim'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'pangloss/vim-javascript'
-Bundle 'JavaScript-Indent'
-Bundle 'claco/jasmine.vim'
-Bundle 'marijnh/tern_for_vim'
-Bundle 'jpalardy/vim-slime'
-Bundle 'Raimondi/delimitMate'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'ruanyl/vim-fixmyjs'
-Bundle 'maksimr/vim-jsbeautify'
-Bundle 'tpope/vim-sleuth'
-Bundle 'tmux-plugins/vim-tmux-focus-events'
-Bundle 'heavenshell/vim-jsdoc'
-Bundle 'ntpeters/vim-better-whitespace'
-Bundle 'tacahiroy/ctrlp-funky'
-Bundle 'Valloric/YouCompleteMe'
-Plugin 'chriskempson/base16-vim'
-Plugin 'neomake/neomake'
-Plugin 'editorconfig/editorconfig-vim'
-Bundle 'mxw/vim-jsx'
-Bundle 'vim-airline/vim-airline-themes'
-Bundle 'facebook/vim-flow'
-
-" disable flowtype by default
-let g:flow#enable = 0
-
-" disable tern documentation view
-autocmd BufEnter * set completeopt-=preview
-let g:tern_map_keys=1
-let g:tern_show_argument_hints='on_hold'
-
 filetype plugin indent on
 
-" To ensure that this plugin works well with Tim Pope's fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-" enable jsx syntax highlighting for non jsx files
-let g:jsx_ext_required = 0
-
-colorscheme base16-materia
-let g:airline_theme='base16'
 
 let g:tmux_navigator_no_mappings = 1
 
-" allows cursor change in tmux mode
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
+colorscheme solarized8_dark
 
+" allows cursor change in tmux mode
+"if exists('$TMUX')
+"    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"endif
+"
 " Go to tab by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt

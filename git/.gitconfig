@@ -1,6 +1,6 @@
 [user]
   name = Vladimir Adamic
-  email = vladimir@shoutem.com
+  email = vladimir.adamic@gmail.com
 [core]
   editor = vim
 	excludesfile = /Users/ovca/.gitignore_global
@@ -27,3 +27,7 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[gitreview]
+	username = vladimir.adamic
+[credential]
+	helper = osxkeychain
