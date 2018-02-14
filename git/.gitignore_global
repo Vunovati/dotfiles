@@ -69,3 +69,5 @@ target
 
 # npm
 #.npmrc
+.env
+.gitreview

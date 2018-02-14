@@ -4,7 +4,7 @@ filetype off
 
 set clipboard=unnamed
 
-if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal"
+if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal" || $TERM == "screen-256color" 
   set t_Co=256
   "set t_Co=16
 endif
@@ -169,13 +169,13 @@ let g:ale_linters = {
 
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['typescript'] = ['prettier']
-let g:ale_fix_on_save = 0
-let g:ale_javascript_prettier_options = '--single-quote --use-tabs --print-width 100'
+" let g:ale_fixers['typescript'] = ['prettier']
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_local_config = 1
 
 set synmaxcol=128
 set ttyfast " u got a fast terminal
-" set ttyscroll=3
+set ttyscroll=1
 
 filetype plugin indent on
 
@@ -183,14 +183,20 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 let g:tmux_navigator_no_mappings = 1
 
-colorscheme solarized8_dark
+" colorscheme nord
+" let g:nord_italic=1 
+" let g:nord_uniform_status_lines = 1
+" let g:nord_comment_brightness = 12
+colorscheme solarized8_dark_flat
 
 " allows cursor change in tmux mode
-"if exists('$TMUX')
-"    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-"    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-"    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-"endif
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 "
 " Go to tab by number
 noremap <leader>1 1gt
