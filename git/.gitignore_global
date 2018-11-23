@@ -68,6 +68,6 @@ target
 .DS_Store
 
 # npm
-#.npmrc
+.npmrc
 .env
 .gitreview

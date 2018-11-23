@@ -1,6 +1,6 @@
 set nocompatible
 set encoding=utf-8
-filetype off
+filetype on
 
 set clipboard=unnamed
 
@@ -31,6 +31,8 @@ syntax on
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
     syntax on
 endif
+
+let g:sql_type_default = 'pgsql'
 
 " Softtabs, 4 spaces
 set tabstop=4
@@ -70,7 +72,7 @@ nnoremap <Down> :echoe "Use j"<CR>
 
 " airline
 " set laststatus=2
-" let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 0
 
 " Treat <li> and <p> tags like the block tags they are
 " let g:html_indent_tags = 'li\|p'
@@ -124,8 +126,8 @@ if executable('ag')
 endif
 
 " Trusqoyomi used for typescript
-autocmd FileType typescript nmap <buffer> <F6> <Plug>(TsuquyomiRenameSymbol)
-autocmd FileType typescript nmap <buffer> <S-F6> <Plug>(TsuquyomiRenameSymbolC)
+" autocmd FileType typescript nmap <buffer> <F6> <Plug>(TsuquyomiRenameSymbol)
+" autocmd FileType typescript nmap <buffer> <S-F6> <Plug>(TsuquyomiRenameSymbolC)
 " let g:tsuquyomi_disable_default_mappings = 1
 
 " bind \ (backward slash) to grep shortcut
@@ -143,6 +145,8 @@ map \f :Ag
 map \u :buffer  
 map \b :Gblame<cr>
 map \w :w<cr>
+map \a :ALEFix<cr>
+map \q  :%!sqlformat --reindent --keywords upper --identifiers lower -<CR>
 
 " toggle between dark and light background
 nnoremap  <leader>B :<c-u>exe "colors" (g:colors_name =~# "dark"
@@ -169,8 +173,8 @@ let g:ale_linters = {
 
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
-" let g:ale_fixers['typescript'] = ['prettier']
-let g:ale_fix_on_save = 1
+let g:ale_fixers['typescript'] = ['prettier']
+let g:ale_fix_on_save = 0
 let g:ale_javascript_prettier_use_local_config = 1
 
 set synmaxcol=128
@@ -187,7 +191,20 @@ let g:tmux_navigator_no_mappings = 1
 " let g:nord_italic=1 
 " let g:nord_uniform_status_lines = 1
 " let g:nord_comment_brightness = 12
-colorscheme solarized8_dark_flat
+colorscheme base16-material
+
+" set up vim-lsp Language Server Protocol
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+      \ 'name': 'typescript-language-server',
+      \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+      \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
+      \ })
+endif
+
+let g:lsp_signs_enabled = 1         " enable signs
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 
 " allows cursor change in tmux mode
 if exists('$TMUX')
@@ -197,7 +214,30 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
-"
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+let g:asyncomplete_remove_duplicates = 1
+
+autocmd FileType typescript nmap <buffer> <S-F6> :LspRename<cr>
+autocmd FileType typescript nmap \d :LspDefinition<cr>
+autocmd FileType typescript nmap \i :LspImplementation<cr>
+autocmd FileType typescript nmap \r :LspReferences<cr>
+autocmd FileType typescript nmap \p :LspDocumentFormat<cr>
+autocmd FileType typescript nmap <buffer> \p :LspFormat<cr>
+autocmd FileType typescript nmap \h :LspHover<cr>
+autocmd FileType typescript nmap \l :LspWorkspaceSymbol<cr>
+autocmd FileType typescript nmap \t :LspDocumentDiagnostics<cr>
+
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+
+" for asyncomplete.vim log
+let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+
 " Go to tab by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
