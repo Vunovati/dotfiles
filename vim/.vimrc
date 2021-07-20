@@ -4,10 +4,10 @@ filetype on
 
 set clipboard=unnamed
 
-if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal" || $TERM == "screen-256color" 
-  set t_Co=256
-  "set t_Co=16
-endif
+"if $TERM == "xterm-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal" || $TERM == "screen-256color" 
+"  set t_Co=256
+"  "set t_Co=16
+"endif
 
 " gui colors if running iTerm
 if $TERM_PROGRAM =~ "iTerm"
@@ -72,20 +72,20 @@ nnoremap <Down> :echoe "Use j"<CR>
 
 " airline
 " set laststatus=2
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 
 " Treat <li> and <p> tags like the block tags they are
 " let g:html_indent_tags = 'li\|p'
 
 " Invoke CtrlP in normal mode "
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_match_window_bottom = 1
+"let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'CtrlP'
+"let g:ctrlp_match_window_bottom = 1
 
-map <c-b> :CtrlPBuffer<cr>
+"map <c-b> :CtrlPBuffer<cr>
 
 " Working path is the parent directory of the current file "
-let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_working_path_mode = 'ra'
 
 syntax enable
 "set background=dark
@@ -97,33 +97,33 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
 
 " The maximum depth of a directory tree to recurse into: "
-let g:ctrlp_max_depth = 20
+"let g:ctrlp_max_depth = 20
 
 " Ignore some folders and files for CtrlP indexing
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
-  \ 'file': '\.so$\|\.dat$|\.DS_Store$|\.class$\|\.jar$|\.war$|\.ear$|\.iml$|\.map$'
-  \ }
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
+"  \ 'file': '\.so$\|\.dat$|\.DS_Store$|\.class$\|\.jar$|\.war$|\.ear$|\.iml$|\.map$'
+"  \ }
 
-let g:ctrlp_extensions = ['funky']
-nnoremap <Space>fu :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+"let g:ctrlp_extensions = ['funky']
+"nnoremap <Space>fu :CtrlPFunky<Cr>
+"" narrow the list down with a word under cursor
+"nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
+"if executable('ag')
+"  " Use ag over grep
+"  set grepprg=ag\ --nogroup\ --nocolor
+"
+"  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+"  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"
+"  " ag is fast enough that CtrlP doesn't need to cache
+"  let g:ctrlp_use_caching = 0
+"endif
 
 " Trusqoyomi used for typescript
 " autocmd FileType typescript nmap <buffer> <F6> <Plug>(TsuquyomiRenameSymbol)
@@ -141,11 +141,11 @@ map \g :Gstatus<cr>
 map \e :Explore<cr>
 map \s :Sexplore<cr>
 map \v :Vexplore<cr>
-map \f :Ag 
+"map \f :Ag 
 map \u :buffer  
 map \b :Gblame<cr>
 map \w :w<cr>
-map \a :ALEFix<cr>
+"map \a :ALEFix<cr>
 map \q  :%!sqlformat --reindent --keywords upper --identifiers lower -<CR>
 
 " toggle between dark and light background
@@ -164,26 +164,29 @@ endf
 nmap <leader>- :<c-u>call Solarized8Contrast(-v:count1)<cr>
 nmap <leader>+ :<c-u>call Solarized8Contrast(+v:count1)<cr>
 
-let g:ale_sign_column_always = 1
-let g:ale_linters = {
-      \   'javascript': ['eslint'],
-      \   'typescript': ['tslint'],
-      \   'json': ['jsonlint'],
-      \}
+"let g:ale_sign_column_always = 1
+"let g:ale_linters = {
+"      \   'javascript': ['eslint'],
+"      \   'typescript': ['tslint'],
+"      \   'json': ['jsonlint'],
+"      \}
+"
+"let g:ale_fixers = {}
+"let g:ale_fixers['javascript'] = ['prettier']
+"let g:ale_fixers['typescript'] = ['prettier']
+"let g:ale_fix_on_save = 1
+"let g:ale_javascript_prettier_use_local_config = 1
 
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['typescript'] = ['prettier']
-let g:ale_fix_on_save = 0
-let g:ale_javascript_prettier_use_local_config = 1
-
-set synmaxcol=128
+"set synmaxcol=128
 set ttyfast " u got a fast terminal
-set ttyscroll=1
+" set ttyscroll=1
 
 filetype plugin indent on
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" autocomplete for gitlab
+let g:gitlab_api_keys = {'gitlab.com': 'kMWMqDXqmDi-kfHjeTz_'}
 
 let g:tmux_navigator_no_mappings = 1
 
@@ -191,20 +194,43 @@ let g:tmux_navigator_no_mappings = 1
 " let g:nord_italic=1 
 " let g:nord_uniform_status_lines = 1
 " let g:nord_comment_brightness = 12
-colorscheme base16-material
+" colorscheme base16-material
+" colorscheme base16-tomorrow-night
+" colorscheme base16-solarized-dark
+"g:solarized_termcolors=16
+"set background=dark
+"let g:solarized_old_cursor_style=1
+"let g:solarized_italics=0
+"colorscheme solarized8_dark
 
-" set up vim-lsp Language Server Protocol
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-      \ 'name': 'typescript-language-server',
-      \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-      \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-      \ })
-endif
-
-let g:lsp_signs_enabled = 1         " enable signs
-let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+"let g:lsc_server_commands = {
+" \  'ruby': {
+" \    'command': 'solargraph stdio',
+" \    'log_level': -1,
+" \    'suppress_stderr': v:true,
+" \  },
+" \  'javascript': {
+" \    'command': 'typescript-language-server --stdio',
+" \    'log_level': -1,
+" \    'suppress_stderr': v:true,
+" \  },
+" \  'typescript': {
+" \    'command': 'typescript-language-server --stdio',
+" \    'log_level': -1,
+" \    'suppress_stderr': v:true,
+" \  }
+" \}
+"let g:lsc_auto_map = {
+" \  'GoToDefinition': 'gd',
+" \  'FindReferences': 'gr',
+" \  'Rename': 'gR',
+" \  'ShowHover': 'K',
+" \  'Completion': 'omnifunc',
+" \}
+"let g:lsc_enable_autocomplete  = v:false
+"let g:lsc_enable_diagnostics   = v:true
+"let g:lsc_reference_highlights = v:true
+"let g:lsc_trace_level          = 'off'
 
 " allows cursor change in tmux mode
 if exists('$TMUX')
@@ -219,24 +245,18 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
-imap <c-space> <Plug>(asyncomplete_force_refresh)
-let g:asyncomplete_remove_duplicates = 1
+"imap <c-space> <Plug>(asyncomplete_force_refresh)
 
-autocmd FileType typescript nmap <buffer> <S-F6> :LspRename<cr>
-autocmd FileType typescript nmap \d :LspDefinition<cr>
-autocmd FileType typescript nmap \i :LspImplementation<cr>
-autocmd FileType typescript nmap \r :LspReferences<cr>
-autocmd FileType typescript nmap \p :LspDocumentFormat<cr>
-autocmd FileType typescript nmap <buffer> \p :LspFormat<cr>
-autocmd FileType typescript nmap \h :LspHover<cr>
-autocmd FileType typescript nmap \l :LspWorkspaceSymbol<cr>
-autocmd FileType typescript nmap \t :LspDocumentDiagnostics<cr>
+"autocmd FileType typescript nmap <buffer> <S-F6> :LSClientRename<cr>
+" autocmd FileType typescript nmap \d :LspDefinition<cr>
+" autocmd FileType typescript nmap \i :LspImplementation<cr>
+" autocmd FileType typescript nmap \r :LspReferences<cr>
+" autocmd FileType typescript nmap \p :LspDocumentFormat<cr>
+" autocmd FileType typescript nmap <buffer> \p :LspFormat<cr>
+" autocmd FileType typescript nmap \h :LspHover<cr>
+" autocmd FileType typescript nmap \l :LspWorkspaceSymbol<cr>
+" autocmd FileType typescript nmap \t :LSClientAllDiagnostics<cr>
 
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/vim-lsp.log')
-
-" for asyncomplete.vim log
-let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
 " Go to tab by number
 noremap <leader>1 1gt
@@ -256,3 +276,8 @@ nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
+
+packloadall
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL

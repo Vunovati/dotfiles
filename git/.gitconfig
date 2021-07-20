@@ -3,31 +3,39 @@
   email = vladimir.adamic@gmail.com
 [core]
   editor = vim
-	excludesfile = /Users/ovca/.gitignore_global
-	autocrlf = input
+  excludesfile = /Users/ovca/.gitignore_global
+  autocrlf = input
+  pager = delta --dark
 [merge]
-  tool = vimdiff
+  tool = nvim
 [color]
   ui = true
 [alias]
-	graph = log --graph --all --pretty=format:'%Cred%h%Creset - %Cgreen(%cr)%Creset %s%C(yellow)%d%Creset' --abbrev-commit --date=relative
-	standup = log --since '1 day ago' --oneline --author vladimir.adamic@gmail.com
-	last = for-each-ref --sort=-committerdate refs/heads/
-	df = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; f"
+  graph = log --graph --all --pretty=format:'%Cred%h%Creset - %Cgreen(%cr)%Creset %s%C(yellow)%d%Creset' --abbrev-commit --date=relative
+  standup = log --since '1 day ago' --oneline --author vladimir.adamic@gmail.com
+  last = for-each-ref --sort=-committerdate refs/heads/
+  df = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; f"
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
 [filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
-	required = true
+  clean = git lfs clean %f
+  smudge = git lfs smudge %f
+  required = true
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 [gitreview]
-	username = vladimir.adamic
+  username = vladimir.adamic
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
+[diff "sopsdiffer"]
+	textconv = sops -d
+
+[includeIf "gitdir:william-hill/"]
+  path = .gitconfig-william-hill

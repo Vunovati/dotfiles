@@ -49,7 +49,7 @@ view
 .tern-project
 
 # IntelliJ IDEA
-#.idea
+.idea
 *.iml
 
 # Eclipse
@@ -71,3 +71,4 @@ target
 .npmrc
 .env
 .gitreview
+
