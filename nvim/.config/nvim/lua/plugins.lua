@@ -50,6 +50,8 @@ require('packer').startup(function()
   use 'folke/which-key.nvim'
   use 'mhartington/formatter.nvim'
   use 'napmn/react-extract.nvim'
+  use { "ThePrimeagen/refactoring.nvim", requires = { {"nvim-lua/plenary.nvim"}, {"nvim-treesitter/nvim-treesitter"} }
+}
 end)
 
 -- luasnip setup (you can leave this here or move it to its own configuration file in `lua/plugs/luasnip.lua`.)
