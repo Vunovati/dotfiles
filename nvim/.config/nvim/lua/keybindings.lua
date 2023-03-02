@@ -33,3 +33,16 @@ map('n', '<leader>r', ':so %<CR>')
 map('n', '<leader>r', ':so %<CR>')
 
 map('n', '<leader>F', ':FormatWrite<CR>')
+
+-- GitHub copilot settings
+
+vim.cmd [[
+  imap <silent><script><expr> <C-A> copilot#Accept("\<CR>")
+  let g:copilot_no_tab_map = v:true
+]]
+
+map('n', '<leader>ce', ':Copilot enable<CR>')
+
+map('n', '<leader>cd', ':Copilot disable<CR>')
+
+map('n', '<leader>cp', ':Copilot panel<CR>')

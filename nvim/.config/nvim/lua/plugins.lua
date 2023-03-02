@@ -44,12 +44,15 @@ require('packer').startup(function()
   use 'williamboman/nvim-lsp-installer'
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin.
   use 'hrsh7th/cmp-nvim-lsp'
+  use 'github/copilot.vim'
   use 'jose-elias-alvarez/null-ls.nvim'
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin.
   use 'folke/which-key.nvim'
   use 'mhartington/formatter.nvim'
   use 'napmn/react-extract.nvim'
+  use { 'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim' }
+  use { "catppuccin/nvim", as = "catppuccin" }
   use { "ThePrimeagen/refactoring.nvim", requires = { {"nvim-lua/plenary.nvim"}, {"nvim-treesitter/nvim-treesitter"} }
 }
 end)

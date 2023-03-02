@@ -14,6 +14,7 @@ require("plugs.gitsigns")
 require("plugs.null-ls")
 require("plugs.formatter")
 require("plugs.react-extract")
+require("plugs.gitlinker")
 
 -- Incremental live completion (note: this is now a default on master).
 vim.o.inccommand = 'nosplit'
@@ -44,16 +45,16 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme defaults (order is important here).
 vim.o.termguicolors = true
-vim.g.onedark_terminal_italics = 2
-vim.o.background = 'light'
-vim.cmd [[colorscheme PaperColor]]
+-- vim.g.onedark_terminal_italics = 2
+-- vim.o.background = 'light'
+-- vim.cmd [[colorscheme PaperColor]]
 
 -- Set status bar settings
-vim.g.lightline = {
-  colorscheme = 'PaperColor',
-  active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
-  component_function = { gitbranch = 'FugitiveHead' },
-}
+-- vim.g.lightline = {
+--   colorscheme = 'PaperColor',
+--   active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
+--   component_function = { gitbranch = 'FugitiveHead' },
+-- }
 
 -- Highlight on yank (copy). It will do a nice highlight blink of the thing you just copied.
 vim.api.nvim_exec(
@@ -73,12 +74,12 @@ vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 local theme = vim.fn.system("defaults read -g AppleInterfaceStyle")
 if (string.find(theme, 'Dark')) then
 	vim.o.background = 'dark'
-	vim.cmd [[colorscheme material]]
+	vim.cmd [[colorscheme catppuccin-mocha]]
 else
 	vim.o.background = 'light'
-	vim.cmd [[colorscheme material]]
+	vim.cmd [[colorscheme catppuccin-latte]]
 	-- vim.cmd [[colorscheme PaperColor]]
 end
 
 
-vim.api.nvim_set_keymap('n', '<leader>mm', [[<Cmd>lua require('material.functions').toggle_style()<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>mm', [[<Cmd>lua require('material.functions').toggle_style()<CR>]], { noremap = true, silent = true })
