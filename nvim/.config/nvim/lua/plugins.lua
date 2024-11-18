@@ -26,17 +26,15 @@ require('packer').startup(function()
   use 'tpope/vim-surround' -- A great tool for adding, removing and changing braces, brackets, quotes and various tags around your text.
   use 'tpope/vim-repeat'
   use 'tpope/vim-rhubarb'
+  use 'shumphrey/fugitive-gitlab.vim'
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-sleuth'
+  use 'github/copilot.vim'
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- UI to select things (files, search results, open buffers...)
   use 'jremmen/vim-ripgrep'
   use 'kyazdani42/nvim-web-devicons'
   use { 'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'} } -- A bar that will show at the top of you nvim containing your open buffers. Similarly to how other editors show tabs with open files.
-  use 'bluz71/vim-moonfly-colors' -- A theme I particularly like.
-  use 'shaunsingh/solarized.nvim'
-  use 'NLKNguyen/papercolor-theme'
-  use 'marko-cerovac/material.nvim'
-  use 'itchyny/lightline.vim' -- Fancier status line with some information that will be displayed at the bottom.
+  use { 'nvim-lualine/lualine.nvim', requires = { 'kyadzani42/nvim-web-devicons', opt = true } }
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Adds git related info in the signs columns (near the line numbers) and popups.
   use 'nvim-treesitter/nvim-treesitter' -- Highlight, edit, and navigate code using a fast incremental parsing library. Treesitter is used by nvim for various things, but among others, for syntax coloring. Make sure that any themes you install support treesitter!
   use 'nvim-treesitter/nvim-treesitter-textobjects' -- Additional textobjects for treesitter.
@@ -44,8 +42,7 @@ require('packer').startup(function()
   use 'williamboman/nvim-lsp-installer'
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin.
   use 'hrsh7th/cmp-nvim-lsp'
-  use 'github/copilot.vim'
-  use 'jose-elias-alvarez/null-ls.nvim'
+  -- use 'jose-elias-alvarez/null-ls.nvim'
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin.
   use 'folke/which-key.nvim'
@@ -53,8 +50,11 @@ require('packer').startup(function()
   use 'napmn/react-extract.nvim'
   use { 'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { "catppuccin/nvim", as = "catppuccin" }
-  use { "ThePrimeagen/refactoring.nvim", requires = { {"nvim-lua/plenary.nvim"}, {"nvim-treesitter/nvim-treesitter"} }
-}
+  use ('Tsuzat/NeoSolarized.nvim')
+  use { 'folke/tokyonight.nvim' }
+  use { 'sainnhe/everforest' }
+  use {'akinsho/toggleterm.nvim', tag = '*' }
+  use 'HiPhish/rainbow-delimiters.nvim' 
 end)
 
 -- luasnip setup (you can leave this here or move it to its own configuration file in `lua/plugs/luasnip.lua`.)

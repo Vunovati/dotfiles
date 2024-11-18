@@ -28,6 +28,9 @@ require('formatter').setup {
     },
     json = { 
       format_prettier
+    },
+    yaml = { 
+      format_prettier
     }
   }
 }

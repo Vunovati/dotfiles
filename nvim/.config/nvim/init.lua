@@ -11,10 +11,23 @@ require("plugs.treesitter")
 require("plugs.cmp")
 require("plugs.telescope")
 require("plugs.gitsigns")
-require("plugs.null-ls")
+-- require("plugs.null-ls")
 require("plugs.formatter")
 require("plugs.react-extract")
 require("plugs.gitlinker")
+require("plugs.fugitive-gitlab")
+require("plugs.lualine")
+require("plugs.solarized")
+require("plugs.toggleterm")
+require("plugs.copilot")
+require("plugs.rainbow-delimiters")
+
+-- Make sure Tiltfile is recognized
+vim.api.nvim_create_autocmd({"BufRead"}, {
+  pattern = {"Tiltfile"},
+  command = "set filetype=tiltfile",
+})
+
 
 -- Incremental live completion (note: this is now a default on master).
 vim.o.inccommand = 'nosplit'
@@ -45,16 +58,9 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme defaults (order is important here).
 vim.o.termguicolors = true
--- vim.g.onedark_terminal_italics = 2
--- vim.o.background = 'light'
--- vim.cmd [[colorscheme PaperColor]]
 
--- Set status bar settings
--- vim.g.lightline = {
---   colorscheme = 'PaperColor',
---   active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
---   component_function = { gitbranch = 'FugitiveHead' },
--- }
+-- mode already in lualine
+vim.opt.showmode = false
 
 -- Highlight on yank (copy). It will do a nice highlight blink of the thing you just copied.
 vim.api.nvim_exec(
@@ -70,16 +76,39 @@ vim.api.nvim_exec(
 -- Y yank until the end of line  (note: this is now a default on master)
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 
+-- local ok_status, NeoSolarized = pcall(require, "NeoSolarized")
+-- NeoSolarized.setup {
+--   style = "light", -- "dark" or "light"
+--   transparent = true, -- true/false; Enable this to disable setting the background color
+--   terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+--   enable_italics = true, -- Italics for different hightlight groups (eg. Statement, Condition, Comment, Include, etc.)
+--   styles = {
+--     -- Style to be applied to different syntax groups
+--     comments = { italic = true },
+--     keywords = { italic = false },
+-- 
+--     variables = {},
+--     string = { italic = false },
+--     underline = true, -- true/false; for global underline
+--     undercurl = true, -- true/false; for global undercurl
+--   },
+--   -- Add specific hightlight groups
+--   on_highlights = function(highlights, colors) 
+--     -- highlights.Include.fg = colors.red -- Using `red` foreground for Includes
+--   end, 
+-- }
+
 -- Set dark theme if macOS theme is dark, light otherwise.
 local theme = vim.fn.system("defaults read -g AppleInterfaceStyle")
 if (string.find(theme, 'Dark')) then
 	vim.o.background = 'dark'
+	-- vim.cmd [[colorscheme NeoSolarized]]
+	-- vim.cmd [[colorscheme everforest]]
 	vim.cmd [[colorscheme catppuccin-mocha]]
 else
 	vim.o.background = 'light'
+	-- vim.cmd [[colorscheme NeoSolarized]]
+	-- vim.cmd [[colorscheme everforest]]
 	vim.cmd [[colorscheme catppuccin-latte]]
 	-- vim.cmd [[colorscheme PaperColor]]
 end
-
-
--- vim.api.nvim_set_keymap('n', '<leader>mm', [[<Cmd>lua require('material.functions').toggle_style()<CR>]], { noremap = true, silent = true })
