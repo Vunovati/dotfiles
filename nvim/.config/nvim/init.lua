@@ -19,8 +19,9 @@ require("plugs.fugitive-gitlab")
 require("plugs.lualine")
 require("plugs.solarized")
 require("plugs.toggleterm")
-require("plugs.copilot")
+-- require("plugs.copilot")
 require("plugs.rainbow-delimiters")
+require("plugs.typescript-tools")
 
 -- Make sure Tiltfile is recognized
 vim.api.nvim_create_autocmd({"BufRead"}, {

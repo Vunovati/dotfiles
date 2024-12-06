@@ -29,7 +29,7 @@ require('packer').startup(function()
   use 'shumphrey/fugitive-gitlab.vim'
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-sleuth'
-  use 'github/copilot.vim'
+  -- use 'github/copilot.vim'
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- UI to select things (files, search results, open buffers...)
   use 'jremmen/vim-ripgrep'
   use 'kyazdani42/nvim-web-devicons'
@@ -54,7 +54,14 @@ require('packer').startup(function()
   use { 'folke/tokyonight.nvim' }
   use { 'sainnhe/everforest' }
   use {'akinsho/toggleterm.nvim', tag = '*' }
-  use 'HiPhish/rainbow-delimiters.nvim' 
+  use 'HiPhish/rainbow-delimiters.nvim'
+  use {
+  "pmizio/typescript-tools.nvim",
+  requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  config = function()
+    require("typescript-tools").setup {}
+  end,
+}
 end)
 
 -- luasnip setup (you can leave this here or move it to its own configuration file in `lua/plugs/luasnip.lua`.)
