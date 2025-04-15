@@ -4,11 +4,12 @@
 -- Dependencies
 require("plugins")
 require("keybindings")
-require("lsp")
+require("coc")
+-- require("lsp")
 
 -- Plugin specific configs.
 require("plugs.treesitter")
-require("plugs.cmp")
+-- require("plugs.cmp") -- using coc-nvim now
 require("plugs.telescope")
 require("plugs.gitsigns")
 -- require("plugs.null-ls")
@@ -21,7 +22,7 @@ require("plugs.solarized")
 require("plugs.toggleterm")
 -- require("plugs.copilot")
 require("plugs.rainbow-delimiters")
-require("plugs.typescript-tools")
+-- require("plugs.typescript-tools") -- using coc-nvim now
 
 -- Make sure Tiltfile is recognized
 vim.api.nvim_create_autocmd({"BufRead"}, {

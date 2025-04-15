@@ -40,11 +40,11 @@ require('packer').startup(function()
   use 'nvim-treesitter/nvim-treesitter-textobjects' -- Additional textobjects for treesitter.
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client.
   use 'williamboman/nvim-lsp-installer'
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin.
-  use 'hrsh7th/cmp-nvim-lsp'
+  -- use 'hrsh7th/nvim-cmp' -- Autocompletion plugin.
+  -- use 'hrsh7th/cmp-nvim-lsp'
   -- use 'jose-elias-alvarez/null-ls.nvim'
-  use 'saadparwaiz1/cmp_luasnip'
-  use 'L3MON4D3/LuaSnip' -- Snippets plugin.
+  -- use 'saadparwaiz1/cmp_luasnip'
+  -- use 'L3MON4D3/LuaSnip' -- Snippets plugin.
   use 'folke/which-key.nvim'
   use 'mhartington/formatter.nvim'
   use 'napmn/react-extract.nvim'
@@ -55,14 +55,15 @@ require('packer').startup(function()
   use { 'sainnhe/everforest' }
   use {'akinsho/toggleterm.nvim', tag = '*' }
   use 'HiPhish/rainbow-delimiters.nvim'
-  use {
-  "pmizio/typescript-tools.nvim",
-  requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  config = function()
-    require("typescript-tools").setup {}
-  end,
-}
+  -- use {
+  -- "pmizio/typescript-tools.nvim",
+  -- requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  -- config = function()
+  --   require("typescript-tools").setup {}
+  -- end,
+  --}
+  use {'neoclide/coc.nvim', branch = 'release'}
 end)
 
 -- luasnip setup (you can leave this here or move it to its own configuration file in `lua/plugs/luasnip.lua`.)
-luasnip = require 'luasnip'
+-- luasnip = require 'luasnip'
