@@ -20,7 +20,7 @@ map('n', '<leader>e', ':Explore<cr>')
 map('n', '<leader>se', ':Sexplore<cr>')
 map('n', '<leader>ve', ':Vexplore<cr>')
 
-map('n', '<leader>b', ':buffer  ')
+map('n', '<leader>b', ':Git blame<cr>')
 map('n', '<leader>W', ':wa<cr>')
 map('n', '<leader>w', ':w<cr>')
 

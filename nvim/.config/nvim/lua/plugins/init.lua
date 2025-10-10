@@ -15,7 +15,6 @@ return {
     cmd = { 'Git', 'Gstatus', 'Gblame', 'Gpush', 'Gpull' },
     keys = {
       { '<leader>g', ':Git<cr>', desc = 'Open Git' },
-      { '<leader>gb', ':Git blame<cr>', desc = 'Git blame' },
     },
   },
   {
@@ -34,6 +33,7 @@ return {
     keys = {
       { '<C-n>', '<cmd>lua require("telescope.builtin").find_files({previewer = false})<cr>', desc = 'Find files' },
       { '<C-p>', '<cmd>lua require("telescope.builtin").oldfiles()<cr>', desc = 'Recent files' },
+      { '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<cr>', desc = 'Buffers' },
       { '<leader>sb', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<cr>', desc = 'Search buffer' },
       { '<leader>sh', '<cmd>lua require("telescope.builtin").help_tags()<cr>', desc = 'Search help' },
       { '<leader>st', '<cmd>lua require("telescope.builtin").tags()<cr>', desc = 'Search tags' },
@@ -443,6 +443,7 @@ return {
 
       -- Register keybinding groups with descriptions
       wk.add({
+        { "<C-b>", desc = "Buffers" },
         { "<leader>e", desc = "Explorer" },
         { "<leader>s", group = "Search" },
         { "<leader>sb", desc = "Search buffer" },
@@ -454,13 +455,12 @@ return {
         { "<leader>st", desc = "Search tags" },
         { "<leader>v", group = "Vertical" },
         { "<leader>ve", desc = "Vertical explorer" },
-        { "<leader>b", desc = "Buffer..." },
+        { "<leader>b", desc = "Git blame" },
         { "<leader>w", desc = "Write" },
         { "<leader>W", desc = "Write all" },
         { "<leader>f", desc = "Find word (Ripgrep)" },
         { "<leader>F", desc = "Format buffer" },
         { "<leader>g", group = "Git" },
-        { "<leader>gb", desc = "Git blame" },
         { "<leader>gy", desc = "Copy git link" },
         { "<leader>a", desc = "Code actions" },
         { "<leader>ac", desc = "Code action (cursor)" },
