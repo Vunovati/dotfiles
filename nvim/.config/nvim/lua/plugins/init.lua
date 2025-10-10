@@ -27,9 +27,6 @@ return {
     dependencies = { 'tpope/vim-fugitive' },
   },
 
-  -- Copilot (commented out, can enable if needed)
-  -- 'github/copilot.vim',
-
   -- Telescope - fuzzy finder (lazy-load on keys)
   {
     'nvim-telescope/telescope.nvim',
@@ -69,21 +66,21 @@ return {
 
   -- Icons (needed by many plugins, load at startup)
   {
-    'kyazdani42/nvim-web-devicons',
+    'nvim-tree/nvim-web-devicons',
     lazy = false,
   },
 
   -- Buffer bar
   {
     'romgrk/barbar.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     lazy = false,
   },
 
   -- Status line
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     lazy = false,
     config = function()
       require('lualine').setup({
@@ -329,7 +326,6 @@ return {
   --   - Faster (async, doesn't block editor)
   --   - More flexible (can chain multiple formatters)
   --   - Works without LSP (standalone formatters like prettier)
-  -- REPLACES: formatter.nvim (will be removed after testing)
   {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' }, -- Load before saving
@@ -420,38 +416,6 @@ return {
   -- Which-key
   'folke/which-key.nvim',
 
-  -- Formatter (lazy-load on command/keys)
-  {
-    'mhartington/formatter.nvim',
-    cmd = { 'Format', 'FormatWrite' },
-    keys = {
-      { '<leader>t', ':Format<CR>', desc = 'Format file' },
-      { '<leader>F', ':FormatWrite<CR>', desc = 'Format and write' },
-    },
-    config = function()
-      local function format_prettier()
-        return {
-          exe = "npx",
-          args = {"prettier", "--stdin-filepath", vim.api.nvim_buf_get_name(0)},
-          stdin = true
-        }
-      end
-
-      require('formatter').setup {
-        logging = true,
-        log_level = vim.log.levels.WARN,
-        filetype = {
-          typescript = { format_prettier },
-          typescriptreact = { format_prettier },
-          javascript = { format_prettier },
-          javascriptreact = { format_prettier },
-          json = { format_prettier },
-          yaml = { format_prettier }
-        }
-      }
-    end,
-  },
-
   -- React extract (lazy-load on command)
   {
     'napmn/react-extract.nvim',
@@ -491,27 +455,12 @@ return {
     end,
   },
 
-  -- Colorschemes (load at startup for theme)
+  -- Colorscheme: Catppuccin (load at startup for theme)
   {
     'catppuccin/nvim',
     name = 'catppuccin',
     lazy = false,
     priority = 1000, -- Load before other plugins
-  },
-
-  {
-    'Tsuzat/NeoSolarized.nvim',
-    lazy = false,
-  },
-
-  {
-    'folke/tokyonight.nvim',
-    lazy = false,
-  },
-
-  {
-    'sainnhe/everforest',
-    lazy = false,
   },
 
   -- Terminal (lazy-load on keys)
@@ -575,24 +524,4 @@ return {
       }
     end,
   },
-
-  -- TypeScript tools (commented out - using native LSP instead)
-  -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   config = function()
-  --     require("typescript-tools").setup {}
-  --   end,
-  -- },
-
-  -- ============================================================================
-  -- CoC.nvim - DISABLED (Replaced by native LSP + Mason)
-  -- Keeping commented for easy rollback if needed
-  -- ============================================================================
-  -- {
-  --   'neoclide/coc.nvim',
-  --   branch = 'release',
-  --   lazy = false,
-  --   priority = 900,
-  -- },
 }

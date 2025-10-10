@@ -15,16 +15,15 @@ map('', '<down>', '<nop>')
 map('', '<left>', '<nop>')
 map('', '<right>', '<nop>')
 
-map('n', '<leader>g', ':Git<cr>')
+-- Git keybindings are defined in vim-fugitive plugin config
 map('n', '<leader>e', ':Explore<cr>')
 map('n', '<leader>s', ':Sexplore<cr>')
 map('n', '<leader>v', ':Vexplore<cr>')
 
 map('n', '<leader>b', ':buffer  ')
-map('n', '<leader>gb', ':Git blame<cr>')
 map('n', '<leader>W', ':wa<cr>')
 map('n', '<leader>w', ':w<cr>')
 
 map('n', '<leader>f', ':Rg <C-R><C-W><CR>')
 
-map('n', '<leader>F', ':FormatWrite<CR>')
+-- <leader>F formatting is defined in conform.nvim plugin config

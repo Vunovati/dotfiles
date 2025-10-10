@@ -29,8 +29,8 @@ require("lazy").setup({
   spec = plugin_specs,
   -- Install colorscheme used during installation
   install = { colorscheme = { "catppuccin" } },
-  -- Automatically check for plugin updates
-  checker = { enabled = false }, -- Can enable after migration is stable
+  -- Automatically check for plugin updates (set to true to enable periodic checks)
+  checker = { enabled = false },
   -- UI settings
   ui = {
     border = "rounded",
