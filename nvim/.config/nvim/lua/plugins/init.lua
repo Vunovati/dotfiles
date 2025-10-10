@@ -280,6 +280,7 @@ return {
       'hrsh7th/cmp-nvim-lsp',    -- LSP completion source
       'hrsh7th/cmp-buffer',      -- Buffer words completion
       'hrsh7th/cmp-path',        -- File path completion
+      'hrsh7th/cmp-cmdline',     -- Command-line completion
       'L3MON4D3/LuaSnip',        -- Snippet engine
       'saadparwaiz1/cmp_luasnip', -- Snippet completion
       'rafamadriz/friendly-snippets', -- Pre-made snippets
@@ -300,6 +301,10 @@ return {
   -- OVERLAP: Some LSP servers provide path completion, but this is more
   -- reliable and works in all contexts (strings, comments, etc)
   { 'hrsh7th/cmp-path', lazy = true },
+
+  -- cmp-cmdline: Command-line completion
+  -- Enables Tab completion in Ex mode (`:` commands) and search (`/`)
+  { 'hrsh7th/cmp-cmdline', lazy = true },
 
   -- LuaSnip: Snippet engine
   -- Fast snippet engine written in Lua
