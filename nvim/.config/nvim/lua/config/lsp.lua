@@ -198,93 +198,74 @@ M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- ============================================================================
 -- LSP SERVER CONFIGURATIONS
 -- Specific settings for each LSP server
--- Servers are auto-installed via mason-lspconfig (in plugins/init.lua)
+-- Using Neovim 0.11+ approach with default_config
+-- Servers are auto-installed and configured via mason-lspconfig
 -- ============================================================================
 
-local lspconfig = require('lspconfig')
-
--- TypeScript/JavaScript (ts_ls, formerly tsserver)
-lspconfig.ts_ls.setup({
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
-  -- TypeScript-specific settings
-  settings = {
-    typescript = {
-      inlayHints = {
-        includeInlayParameterNameHints = 'all',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
+-- Server-specific settings (applied via mason-lspconfig handlers in plugins/init.lua)
+M.server_configs = {
+  ts_ls = {
+    settings = {
+      typescript = {
+        inlayHints = {
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
       },
-    },
-    javascript = {
-      inlayHints = {
-        includeInlayParameterNameHints = 'all',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
+      javascript = {
+        inlayHints = {
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
       },
     },
   },
-})
 
--- Lua (lua_ls) - Neovim config LSP
-lspconfig.lua_ls.setup({
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
-  settings = {
-    Lua = {
-      -- Tell LSP about Neovim runtime
-      runtime = {
-        version = 'LuaJIT',
-        path = vim.split(package.path, ';'),
-      },
-      diagnostics = {
-        -- Recognize 'vim' global
-        globals = { 'vim' },
-      },
-      workspace = {
-        -- Make LSP aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file('', true),
-        checkThirdParty = false, -- Don't ask about luassert/busted
-      },
-      telemetry = {
-        enable = false,
+  lua_ls = {
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+          path = vim.split(package.path, ';'),
+        },
+        diagnostics = {
+          globals = { 'vim' },
+        },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file('', true),
+          checkThirdParty = false,
+        },
+        telemetry = {
+          enable = false,
+        },
       },
     },
   },
-})
 
--- JSON
-lspconfig.jsonls.setup({
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
-})
-
--- YAML
-lspconfig.yamlls.setup({
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
-  settings = {
-    yaml = {
-      schemas = {
-        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+  yamlls = {
+    settings = {
+      yaml = {
+        schemas = {
+          ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+        },
       },
     },
   },
-})
 
--- Bash
-lspconfig.bashls.setup({
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
-})
+  -- jsonls and bashls use default settings
+  jsonls = {},
+  bashls = {},
+}
 
 -- ============================================================================
 -- USER COMMANDS

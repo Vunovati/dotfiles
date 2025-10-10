@@ -211,8 +211,9 @@ return {
     'williamboman/mason-lspconfig.nvim',
     lazy = false,
     priority = 799, -- Load after mason, before lspconfig
-    dependencies = { 'williamboman/mason.nvim' },
+    dependencies = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig' },
     config = function()
+      local lsp_config = require('config.lsp')
       require('mason-lspconfig').setup({
         -- Auto-install these LSP servers
         ensure_installed = {
@@ -223,6 +224,17 @@ return {
           'bashls',       -- Bash
         },
         automatic_installation = true,
+        -- Handlers automatically set up LSP servers (Neovim 0.11+ compatible)
+        handlers = {
+          -- Default handler for all servers
+          function(server_name)
+            local server_config = lsp_config.server_configs[server_name] or {}
+            require('lspconfig')[server_name].setup(vim.tbl_deep_extend('force', {
+              on_attach = lsp_config.on_attach,
+              capabilities = lsp_config.capabilities,
+            }, server_config))
+          end,
+        },
       })
     end,
   },
