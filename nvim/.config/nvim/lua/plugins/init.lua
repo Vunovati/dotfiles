@@ -462,6 +462,10 @@ return {
         { "<leader>F", desc = "Format buffer" },
         { "<leader>g", group = "Git" },
         { "<leader>gy", desc = "Copy git link" },
+        { "<leader>t", group = "Terminal" },
+        { "<leader>tv", desc = "Vertical terminal" },
+        { "<leader>th", desc = "Horizontal terminal" },
+        { "<leader>tf", desc = "Floating terminal" },
         { "<leader>a", desc = "Code actions" },
         { "<leader>ac", desc = "Code action (cursor)" },
         { "<leader>rn", desc = "Rename symbol" },
@@ -594,15 +598,40 @@ return {
     version = '*',
     keys = {
       { '<C-\\>', mode = { 'n', 'i', 't' }, desc = 'Toggle terminal' },
+      { '<leader>tv', desc = 'Vertical terminal' },
+      { '<leader>th', desc = 'Horizontal terminal' },
+      { '<leader>tf', desc = 'Floating terminal' },
     },
     config = function()
       require("toggleterm").setup({
-        direction = 'vertical',
-        size = 35,
+        -- Dynamic size based on direction
+        size = function(term)
+          if term.direction == "horizontal" then
+            return 15  -- 15 lines tall
+          elseif term.direction == "vertical" then
+            return math.floor(vim.o.columns * 0.4)  -- 40% of screen width
+          end
+        end,
         open_mapping = [[<C-\>]],
         insert_mappings = true,
+        -- Default to vertical direction
+        direction = 'vertical',
       })
 
+      -- Keybindings for specific directions
+      vim.keymap.set('n', '<leader>tv', function()
+        vim.cmd('ToggleTerm direction=vertical')
+      end, { desc = 'Vertical terminal' })
+
+      vim.keymap.set('n', '<leader>th', function()
+        vim.cmd('ToggleTerm direction=horizontal')
+      end, { desc = 'Horizontal terminal' })
+
+      vim.keymap.set('n', '<leader>tf', function()
+        vim.cmd('ToggleTerm direction=float')
+      end, { desc = 'Floating terminal' })
+
+      -- Terminal navigation keymaps
       function _G.set_terminal_keymaps()
         local opts = {buffer = 0}
         vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
