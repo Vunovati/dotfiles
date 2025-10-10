@@ -2,7 +2,10 @@
 --
 -- GENERAL SETTINGS
 -- Dependencies
-require("plugins")
+
+-- Load lazy.nvim plugin manager (replaces Packer)
+require("config.lazy")
+
 require("keybindings")
 require("coc")
 -- require("lsp")

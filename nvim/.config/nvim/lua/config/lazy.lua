@@ -22,11 +22,11 @@ vim.opt.rtp:prepend(lazypath)
 -- vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
+-- Load plugin specs
+local plugin_specs = require("plugins")
+
 require("lazy").setup({
-  spec = {
-    -- Import plugins from lua/plugins/
-    { import = "plugins" },
-  },
+  spec = plugin_specs,
   -- Install colorscheme used during installation
   install = { colorscheme = { "catppuccin" } },
   -- Automatically check for plugin updates
