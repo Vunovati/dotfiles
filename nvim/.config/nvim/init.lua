@@ -10,22 +10,7 @@ require("keybindings")
 require("coc")
 -- require("lsp")
 
--- Plugin specific configs.
-require("plugs.treesitter")
--- require("plugs.cmp") -- using coc-nvim now
-require("plugs.telescope")
-require("plugs.gitsigns")
--- require("plugs.null-ls")
-require("plugs.formatter")
--- require("plugs.react-extract")
-require("plugs.gitlinker")
--- require("plugs.fugitive-gitlab")
-require("plugs.lualine")
--- require("plugs.solarized")
-require("plugs.toggleterm")
--- require("plugs.copilot")
-require("plugs.rainbow-delimiters")
--- require("plugs.typescript-tools") -- using coc-nvim now
+-- Plugin configs are now managed by lazy.nvim in lua/plugins/init.lua
 
 -- Make sure Tiltfile is recognized
 vim.api.nvim_create_autocmd({"BufRead"}, {
