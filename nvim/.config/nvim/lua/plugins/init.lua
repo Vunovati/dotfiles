@@ -178,16 +178,232 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
 
-  -- LSP config (available but not actively used - using CoC instead)
-  'neovim/nvim-lspconfig',
-  'williamboman/nvim-lsp-installer',
+  -- ============================================================================
+  -- LSP & COMPLETION STACK (Native Neovim LSP replacing CoC)
+  -- ============================================================================
 
-  -- Completion plugins (commented out - using CoC instead)
-  -- 'hrsh7th/nvim-cmp',
-  -- 'hrsh7th/cmp-nvim-lsp',
-  -- 'jose-elias-alvarez/null-ls.nvim',
-  -- 'saadparwaiz1/cmp_luasnip',
-  -- 'L3MON4D3/LuaSnip',
+  -- Mason: Package manager for LSP servers, formatters, linters, DAP servers
+  -- Central hub for installing and managing all development tools
+  -- UI: :Mason to browse and install tools
+  {
+    'williamboman/mason.nvim',
+    lazy = false, -- Load immediately to ensure tools are available
+    priority = 800, -- Load before LSP servers
+    config = function()
+      require('mason').setup({
+        ui = {
+          border = 'rounded',
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+          }
+        }
+      })
+    end,
+  },
+
+  -- Mason-LSPConfig: Bridges mason.nvim with nvim-lspconfig
+  -- Automatically sets up LSP servers installed via Mason
+  -- OVERLAP: Also installs LSP servers (along with mason-tool-installer)
+  -- but this one specifically handles LSP server configuration
+  {
+    'williamboman/mason-lspconfig.nvim',
+    lazy = false,
+    priority = 799, -- Load after mason, before lspconfig
+    dependencies = { 'williamboman/mason.nvim' },
+    config = function()
+      require('mason-lspconfig').setup({
+        -- Auto-install these LSP servers
+        ensure_installed = {
+          'ts_ls',     -- TypeScript/JavaScript (formerly tsserver)
+          'lua_ls',       -- Lua
+          'jsonls',       -- JSON
+          'yamlls',       -- YAML
+          'bashls',       -- Bash
+        },
+        automatic_installation = true,
+      })
+    end,
+  },
+
+  -- Mason-Tool-Installer: Auto-installs formatters, linters, etc on startup
+  -- OVERLAP: mason-lspconfig also installs LSP servers, but this adds
+  -- convenience for formatters/linters and ensures tools are installed on startup
+  {
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    lazy = false,
+    priority = 798,
+    dependencies = { 'williamboman/mason.nvim' },
+    config = function()
+      require('mason-tool-installer').setup({
+        ensure_installed = {
+          'prettier',  -- Formatter for JS/TS/JSON/YAML/etc
+          'stylua',    -- Lua formatter
+        },
+        auto_update = false,
+        run_on_start = true,
+      })
+    end,
+  },
+
+  -- NvimLSPConfig: Quickstart configs for Neovim LSP
+  -- Provides pre-configured settings for 100+ LSP servers
+  -- Core plugin that connects Mason-installed servers to Neovim's LSP client
+  {
+    'neovim/nvim-lspconfig',
+    lazy = false,
+    priority = 797,
+    dependencies = {
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+    },
+    -- Configuration is in lua/config/lsp.lua (loaded from init.lua)
+  },
+
+  -- nvim-cmp: Completion engine
+  -- Core completion plugin - everything else plugs into this
+  -- Replaces CoC's completion functionality
+  {
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter', -- Lazy-load when entering insert mode
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',    -- LSP completion source
+      'hrsh7th/cmp-buffer',      -- Buffer words completion
+      'hrsh7th/cmp-path',        -- File path completion
+      'L3MON4D3/LuaSnip',        -- Snippet engine
+      'saadparwaiz1/cmp_luasnip', -- Snippet completion
+      'rafamadriz/friendly-snippets', -- Pre-made snippets
+    },
+    -- Configuration is in lua/config/cmp.lua (loaded from init.lua)
+  },
+
+  -- cmp-nvim-lsp: LSP completion source for nvim-cmp
+  -- Provides completions from LSP servers (function names, variables, etc)
+  { 'hrsh7th/cmp-nvim-lsp', lazy = true },
+
+  -- cmp-buffer: Buffer word completion
+  -- OVERLAP: LSP also suggests words from buffer, but this is smarter about
+  -- finding words across all buffers and handles non-LSP files better
+  { 'hrsh7th/cmp-buffer', lazy = true },
+
+  -- cmp-path: File path completion
+  -- OVERLAP: Some LSP servers provide path completion, but this is more
+  -- reliable and works in all contexts (strings, comments, etc)
+  { 'hrsh7th/cmp-path', lazy = true },
+
+  -- LuaSnip: Snippet engine
+  -- Fast snippet engine written in Lua
+  -- Supports VSCode-style snippets from friendly-snippets
+  {
+    'L3MON4D3/LuaSnip',
+    lazy = true,
+    version = 'v2.*',
+    build = 'make install_jsregexp', -- Optional: for regex support
+    dependencies = { 'rafamadriz/friendly-snippets' },
+  },
+
+  -- cmp_luasnip: Connect LuaSnip to nvim-cmp
+  -- Makes snippets available in completion menu
+  { 'saadparwaiz1/cmp_luasnip', lazy = true },
+
+  -- friendly-snippets: Collection of pre-made snippets
+  -- Provides snippets for many languages (JS/TS, Python, Go, etc)
+  { 'rafamadriz/friendly-snippets', lazy = true },
+
+  -- conform.nvim: Async formatter
+  -- Modern replacement for formatter.nvim and null-ls formatting
+  -- OVERLAP: LSP servers can format via vim.lsp.buf.format(), but conform is:
+  --   - Faster (async, doesn't block editor)
+  --   - More flexible (can chain multiple formatters)
+  --   - Works without LSP (standalone formatters like prettier)
+  -- REPLACES: formatter.nvim (will be removed after testing)
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' }, -- Load before saving
+    cmd = { 'ConformInfo' },
+    keys = {
+      {
+        '<leader>F',
+        function()
+          require('conform').format({ async = true, lsp_fallback = true })
+        end,
+        mode = '',
+        desc = 'Format buffer',
+      },
+    },
+    config = function()
+      require('conform').setup({
+        formatters_by_ft = {
+          javascript = { 'prettier' },
+          javascriptreact = { 'prettier' },
+          typescript = { 'prettier' },
+          typescriptreact = { 'prettier' },
+          json = { 'prettier' },
+          yaml = { 'prettier' },
+          lua = { 'stylua' },
+        },
+        format_on_save = {
+          timeout_ms = 500,
+          lsp_fallback = true,
+        },
+      })
+    end,
+  },
+
+  -- trouble.nvim: Pretty diagnostics, references, quickfix list
+  -- Beautiful UI for viewing diagnostics, LSP references, etc
+  -- OVERLAP: Telescope can show diagnostics, but Trouble is purpose-built for:
+  --   - Better grouping by file/severity
+  --   - Persistent diagnostics window
+  --   - Replaces CoC's :CocList diagnostics
+  {
+    'folke/trouble.nvim',
+    cmd = { 'Trouble', 'TroubleToggle' },
+    keys = {
+      { '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
+      { '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics (Trouble)' },
+      { '<leader>xL', '<cmd>Trouble loclist toggle<cr>', desc = 'Location List (Trouble)' },
+      { '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List (Trouble)' },
+    },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('trouble').setup({})
+    end,
+  },
+
+  -- lsp-signature.nvim: Show function signature while typing
+  -- Automatically displays function signature with parameter hints
+  -- OVERLAP: LSP has built-in signature help (vim.lsp.buf.signature_help),
+  -- but this makes it automatic and prettier (no need to press a key)
+  {
+    'ray-x/lsp_signature.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('lsp_signature').setup({
+        bind = true,
+        handler_opts = {
+          border = 'rounded'
+        },
+        hint_enable = false, -- Disable virtual text hints (can be noisy)
+      })
+    end,
+  },
+
+  -- fidget.nvim: LSP progress notifications
+  -- Shows LSP server status in bottom-right (e.g., "Indexing... 50%")
+  -- Pure UI enhancement, no functional overlap with other plugins
+  {
+    'j-hui/fidget.nvim',
+    event = 'LspAttach',
+    opts = {
+      notification = {
+        window = {
+          winblend = 0,
+        },
+      },
+    },
+  },
 
   -- Which-key
   'folke/which-key.nvim',
@@ -348,7 +564,7 @@ return {
     end,
   },
 
-  -- TypeScript tools (commented out - using CoC instead)
+  -- TypeScript tools (commented out - using native LSP instead)
   -- {
   --   "pmizio/typescript-tools.nvim",
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -357,11 +573,14 @@ return {
   --   end,
   -- },
 
-  -- CoC.nvim - LSP and completion (must load at startup)
-  {
-    'neoclide/coc.nvim',
-    branch = 'release',
-    lazy = false,
-    priority = 900, -- Load early but after colorscheme
-  },
+  -- ============================================================================
+  -- CoC.nvim - DISABLED (Replaced by native LSP + Mason)
+  -- Keeping commented for easy rollback if needed
+  -- ============================================================================
+  -- {
+  --   'neoclide/coc.nvim',
+  --   branch = 'release',
+  --   lazy = false,
+  --   priority = 900,
+  -- },
 }

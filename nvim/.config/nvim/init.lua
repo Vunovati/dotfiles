@@ -7,8 +7,14 @@
 require("config.lazy")
 
 require("keybindings")
-require("coc")
--- require("lsp")
+
+-- LSP & Completion (Native Neovim LSP replacing CoC)
+require("config.lsp")  -- LSP server configurations and keybindings
+require("config.cmp")  -- nvim-cmp completion setup
+
+-- CoC - DISABLED (replaced by native LSP)
+-- Uncomment to rollback to CoC if needed
+-- require("coc")
 
 -- Plugin configs are now managed by lazy.nvim in lua/plugins/init.lua
 
