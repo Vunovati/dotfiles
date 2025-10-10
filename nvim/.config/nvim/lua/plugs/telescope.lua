@@ -13,7 +13,8 @@ require('telescope').setup {
   },
 }
 -- Add leader shortcuts.
-vim.api.nvim_set_keymap('n', '<C-b>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
+-- conflicts with coc float window scroll up
+-- vim.api.nvim_set_keymap('n', '<C-b>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-n>', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
