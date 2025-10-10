@@ -413,8 +413,128 @@ return {
     },
   },
 
-  -- Which-key
-  'folke/which-key.nvim',
+  -- which-key.nvim: Keybinding discovery and documentation
+  -- Shows popup with available keybindings when you pause while typing
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    config = function()
+      local wk = require('which-key')
+
+      wk.setup({
+        plugins = {
+          marks = true,
+          registers = true,
+          spelling = {
+            enabled = true,
+            suggestions = 20,
+          },
+        },
+        delay = 300, -- Popup delay in ms
+        win = {
+          border = 'rounded',
+        },
+      })
+
+      -- Register keybinding groups with descriptions
+      wk.add({
+        { "<leader>e", desc = "Explorer" },
+        { "<leader>s", group = "Search" },
+        { "<leader>sb", desc = "Search buffer" },
+        { "<leader>sd", desc = "Grep string" },
+        { "<leader>se", desc = "Split explorer (horizontal)" },
+        { "<leader>sh", desc = "Search help" },
+        { "<leader>so", desc = "Buffer tags" },
+        { "<leader>sp", desc = "Live grep word" },
+        { "<leader>st", desc = "Search tags" },
+        { "<leader>v", group = "Vertical" },
+        { "<leader>ve", desc = "Vertical explorer" },
+        { "<leader>b", desc = "Buffer..." },
+        { "<leader>w", desc = "Write" },
+        { "<leader>W", desc = "Write all" },
+        { "<leader>f", desc = "Find word (Ripgrep)" },
+        { "<leader>F", desc = "Format buffer" },
+        { "<leader>g", group = "Git" },
+        { "<leader>gb", desc = "Git blame" },
+        { "<leader>gy", desc = "Copy git link" },
+        { "<leader>a", desc = "Code actions" },
+        { "<leader>ac", desc = "Code action (cursor)" },
+        { "<leader>rn", desc = "Rename symbol" },
+        { "<leader>qf", desc = "Quick fix" },
+        { "<leader>lf", desc = "Format (LSP)" },
+        { "<leader>x", group = "Diagnostics" },
+        { "<leader>xx", desc = "Diagnostics" },
+        { "<leader>xX", desc = "Buffer diagnostics" },
+        { "<leader>xL", desc = "Location list" },
+        { "<leader>xQ", desc = "Quickfix list" },
+        { "<space>s", desc = "Workspace symbols" },
+        { "<space>o", desc = "Document symbols" },
+        { "gd", desc = "Go to definition" },
+        { "gy", desc = "Go to type definition" },
+        { "gi", desc = "Go to implementation" },
+        { "gr", desc = "Go to references" },
+        { "K", desc = "Hover documentation" },
+        { "[d", desc = "Previous diagnostic" },
+        { "]d", desc = "Next diagnostic" },
+      })
+    end,
+  },
+
+  -- alpha-nvim: Startup dashboard with keybinding reference
+  -- Shows on startup when opening nvim without a file
+  {
+    'goolord/alpha-nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      local alpha = require('alpha')
+      local dashboard = require('alpha.themes.dashboard')
+
+      -- Header
+      dashboard.section.header.val = {
+        [[                                                    ]],
+        [[ ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗]],
+        [[ ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║]],
+        [[ ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║]],
+        [[ ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║]],
+        [[ ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║]],
+        [[ ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+        [[                                                    ]],
+      }
+
+      -- Buttons with key shortcuts
+      dashboard.section.buttons.val = {
+        dashboard.button("e", "  New file", ":ene <BAR> startinsert<CR>"),
+        dashboard.button("SPC SPC", "  Find file", ":Telescope find_files<CR>"),
+        dashboard.button("SPC f g", "  Live grep", ":Telescope live_grep<CR>"),
+        dashboard.button("c", "  Configuration", ":e $MYVIMRC<CR>"),
+        dashboard.button("u", "  Update plugins", ":Lazy sync<CR>"),
+        dashboard.button("q", "  Quit", ":qa<CR>"),
+      }
+
+      -- Footer with keybinding tips
+      dashboard.section.footer.val = {
+        "",
+        "Quick Reference:",
+        "",
+        "Ctrl+n   Find files      |  Ctrl+p   Recent files",
+        "Ctrl+\\   Terminal        |  Leader   Show all shortcuts",
+        "",
+        "gd       Go to def       |  gr       Go to references",
+        "Leader+a Code actions    |  Leader+rn Rename",
+        "Leader+F Format          |  Leader+g  Git",
+        "",
+        "Press <Leader> or <Space> to see all keybindings!",
+      }
+
+      -- Apply theme
+      alpha.setup(dashboard.config)
+
+      -- Disable folding on alpha buffer
+      vim.cmd([[
+        autocmd FileType alpha setlocal nofoldenable
+      ]])
+    end,
+  },
 
   -- React extract (lazy-load on command)
   {

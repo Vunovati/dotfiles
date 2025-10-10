@@ -17,8 +17,8 @@ map('', '<right>', '<nop>')
 
 -- Git keybindings are defined in vim-fugitive plugin config
 map('n', '<leader>e', ':Explore<cr>')
-map('n', '<leader>s', ':Sexplore<cr>')
-map('n', '<leader>v', ':Vexplore<cr>')
+map('n', '<leader>se', ':Sexplore<cr>')
+map('n', '<leader>ve', ':Vexplore<cr>')
 
 map('n', '<leader>b', ':buffer  ')
 map('n', '<leader>W', ':wa<cr>')
