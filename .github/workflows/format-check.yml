@@ -21,4 +21,4 @@ jobs:
           chmod +x stylua
 
       - name: Check Lua formatting
-        run: ./stylua --check nvim/
+        run: ./stylua --check --config-path nvim/.config/nvim/.stylua.toml nvim/
