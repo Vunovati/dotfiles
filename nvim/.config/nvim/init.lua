@@ -52,15 +52,12 @@ vim.o.termguicolors = true
 vim.opt.showmode = false
 
 -- Highlight on yank (copy). It will do a nice highlight blink of the thing you just copied.
-vim.api.nvim_exec(
-  [[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup end
-]],
-  false
-)
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('YankHighlight', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
 
 -- Y yank until the end of line (consistent with D and C behavior)
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })

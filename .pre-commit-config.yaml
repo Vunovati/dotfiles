@@ -3,5 +3,5 @@ repos:
     rev: v0.20.0
     hooks:
       - id: stylua
-        args: [--check]  # Use --check to only verify, or remove to auto-fix
+        args: [--check, --config-path, nvim/.config/nvim/.stylua.toml]
         files: ^nvim/.*\.lua$  # Only check Lua files in nvim directory

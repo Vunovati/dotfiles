@@ -22,8 +22,15 @@ vim.diagnostic.config({
     prefix = '●', -- Could be '■', '▎', 'x', '●'
     source = 'if_many', -- Show source if multiple sources
   },
-  -- Show diagnostics in sign column (left gutter)
-  signs = true,
+  -- Show diagnostics in sign column (left gutter) with custom icons
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.HINT] = ' ',
+      [vim.diagnostic.severity.INFO] = ' ',
+    },
+  },
   -- Underline problematic code
   underline = true,
   -- Update diagnostics while typing (vs only on save)
@@ -40,13 +47,6 @@ vim.diagnostic.config({
     prefix = '',
   },
 })
-
--- Define diagnostic signs (icons in the sign column)
-local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 -- ============================================================================
 -- LSP HANDLERS
