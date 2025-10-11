@@ -4,3 +4,4 @@ repos:
     hooks:
       - id: stylua
         args: [--check]  # Use --check to only verify, or remove to auto-fix
+        files: ^nvim/.*\.lua$  # Only check Lua files in nvim directory

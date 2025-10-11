@@ -1,9 +1,13 @@
-name: Format Check
+name: Neovim Lua Format Check
 
 on:
   pull_request:
+    paths:
+      - 'nvim/**/*.lua'
   push:
     branches: [main, master]
+    paths:
+      - 'nvim/**/*.lua'
 
 jobs:
   stylua:
@@ -17,4 +21,4 @@ jobs:
           chmod +x stylua
 
       - name: Check Lua formatting
-        run: ./stylua --check .
+        run: ./stylua --check nvim/
