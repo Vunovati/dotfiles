@@ -41,31 +41,31 @@ end
 -- Icons shown next to completion items indicating their source
 -- ============================================================================
 local kind_icons = {
-  Text = "",
-  Method = "󰆧",
-  Function = "󰊕",
-  Constructor = "",
-  Field = "󰇽",
-  Variable = "󰂡",
-  Class = "󰠱",
-  Interface = "",
-  Module = "",
-  Property = "󰜢",
-  Unit = "",
-  Value = "󰎠",
-  Enum = "",
-  Keyword = "󰌋",
-  Snippet = "",
-  Color = "󰏘",
-  File = "󰈙",
-  Reference = "",
-  Folder = "󰉋",
-  EnumMember = "",
-  Constant = "󰏿",
-  Struct = "",
-  Event = "",
-  Operator = "󰆕",
-  TypeParameter = "󰅲",
+  Text = '',
+  Method = '󰆧',
+  Function = '󰊕',
+  Constructor = '',
+  Field = '󰇽',
+  Variable = '󰂡',
+  Class = '󰠱',
+  Interface = '',
+  Module = '',
+  Property = '󰜢',
+  Unit = '',
+  Value = '󰎠',
+  Enum = '',
+  Keyword = '󰌋',
+  Snippet = '',
+  Color = '󰏘',
+  File = '󰈙',
+  Reference = '',
+  Folder = '󰉋',
+  EnumMember = '',
+  Constant = '󰏿',
+  Struct = '',
+  Event = '',
+  Operator = '󰆕',
+  TypeParameter = '󰅲',
 }
 
 -- ============================================================================
@@ -169,7 +169,7 @@ cmp.setup({
             bufs[vim.api.nvim_win_get_buf(win)] = true
           end
           return vim.tbl_keys(bufs)
-        end
+        end,
       },
     },
   }),
@@ -236,18 +236,18 @@ cmp.setup({
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = 'buffer' }
-  }
+    { name = 'buffer' },
+  },
 })
 
 -- Use cmdline & path source for `:` (cmdline commands)
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'path' }
+    { name = 'path' },
   }, {
-    { name = 'cmdline' }
-  })
+    { name = 'cmdline' },
+  }),
 })
 
 -- ============================================================================
@@ -263,7 +263,7 @@ luasnip.config.setup({
 })
 
 -- Key bindings for snippet navigation (in addition to <C-j>/<C-k> above)
-vim.keymap.set({'i', 's'}, '<Tab>', function()
+vim.keymap.set({ 'i', 's' }, '<Tab>', function()
   if luasnip.expand_or_jumpable() then
     luasnip.expand_or_jump()
   else
@@ -271,7 +271,7 @@ vim.keymap.set({'i', 's'}, '<Tab>', function()
   end
 end, { expr = true, silent = true })
 
-vim.keymap.set({'i', 's'}, '<S-Tab>', function()
+vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
   if luasnip.jumpable(-1) then
     luasnip.jump(-1)
   else

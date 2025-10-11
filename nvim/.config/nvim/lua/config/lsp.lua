@@ -42,9 +42,9 @@ vim.diagnostic.config({
 })
 
 -- Define diagnostic signs (icons in the sign column)
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
+  local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
@@ -54,16 +54,10 @@ end
 -- ============================================================================
 
 -- Hover window with border
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = "rounded" }
-)
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 
 -- Signature help window with border
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  { border = "rounded" }
-)
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
 
 -- ============================================================================
 -- LSP KEYBINDINGS
@@ -256,7 +250,7 @@ M.server_configs = {
     settings = {
       yaml = {
         schemas = {
-          ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+          ['https://json.schemastore.org/github-workflow.json'] = '/.github/workflows/*',
         },
       },
     },

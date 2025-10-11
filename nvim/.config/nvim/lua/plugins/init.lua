@@ -38,8 +38,16 @@ return {
       { '<leader>sh', '<cmd>lua require("telescope.builtin").help_tags()<cr>', desc = 'Search help' },
       { '<leader>st', '<cmd>lua require("telescope.builtin").tags()<cr>', desc = 'Search tags' },
       { '<leader>sd', '<cmd>lua require("telescope.builtin").grep_string()<cr>', desc = 'Grep string' },
-      { '<leader>sp', '<cmd>lua require("telescope.builtin").live_grep({ default_text = vim.fn.expand("<cword>") })<cr>', desc = 'Live grep' },
-      { '<leader>so', '<cmd>lua require("telescope.builtin").tags{ only_current_buffer = true }<cr>', desc = 'Buffer tags' },
+      {
+        '<leader>sp',
+        '<cmd>lua require("telescope.builtin").live_grep({ default_text = vim.fn.expand("<cword>") })<cr>',
+        desc = 'Live grep',
+      },
+      {
+        '<leader>so',
+        '<cmd>lua require("telescope.builtin").tags{ only_current_buffer = true }<cr>',
+        desc = 'Buffer tags',
+      },
     },
     config = function()
       require('telescope').setup {
@@ -48,9 +56,9 @@ return {
             i = {
               ['<C-u>'] = false,
               ['<C-d>'] = false,
-              ['<C-j>'] = "move_selection_next",
-              ['<C-k>'] = "move_selection_previous",
-              ["<C-h>"] = "which_key"
+              ['<C-j>'] = 'move_selection_next',
+              ['<C-k>'] = 'move_selection_previous',
+              ['<C-h>'] = 'which_key',
             },
           },
         },
@@ -85,8 +93,8 @@ return {
     config = function()
       require('lualine').setup({
         options = {
-          theme = 'catppuccin'
-        }
+          theme = 'catppuccin',
+        },
       })
     end,
   },
@@ -99,12 +107,12 @@ return {
     config = function()
       require('gitsigns').setup {
         signs = {
-          add = { text = "┃" },
-          change = { text = "┃" },
-          delete = { text = "_" },
-          topdelete = { text = "‾" },
-          changedelete = { text = "~" },
-          untracked = { text = "┆" },
+          add = { text = '┃' },
+          change = { text = '┃' },
+          delete = { text = '_' },
+          topdelete = { text = '‾' },
+          changedelete = { text = '~' },
+          untracked = { text = '┆' },
         },
       }
     end,
@@ -191,11 +199,11 @@ return {
         ui = {
           border = 'rounded',
           icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
-          }
-        }
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗',
+          },
+        },
       })
     end,
   },
@@ -214,11 +222,11 @@ return {
       require('mason-lspconfig').setup({
         -- Auto-install these LSP servers
         ensure_installed = {
-          'ts_ls',     -- TypeScript/JavaScript (formerly tsserver)
-          'lua_ls',       -- Lua
-          'jsonls',       -- JSON
-          'yamlls',       -- YAML
-          'bashls',       -- Bash
+          'ts_ls', -- TypeScript/JavaScript (formerly tsserver)
+          'lua_ls', -- Lua
+          'jsonls', -- JSON
+          'yamlls', -- YAML
+          'bashls', -- Bash
         },
         automatic_installation = true,
         -- Handlers automatically set up LSP servers (Neovim 0.11+ compatible)
@@ -247,8 +255,8 @@ return {
     config = function()
       require('mason-tool-installer').setup({
         ensure_installed = {
-          'prettier',  -- Formatter for JS/TS/JSON/YAML/etc
-          'stylua',    -- Lua formatter
+          'prettier', -- Formatter for JS/TS/JSON/YAML/etc
+          'stylua', -- Lua formatter
         },
         auto_update = false,
         run_on_start = true,
@@ -277,11 +285,11 @@ return {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter', -- Lazy-load when entering insert mode
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp',    -- LSP completion source
-      'hrsh7th/cmp-buffer',      -- Buffer words completion
-      'hrsh7th/cmp-path',        -- File path completion
-      'hrsh7th/cmp-cmdline',     -- Command-line completion
-      'L3MON4D3/LuaSnip',        -- Snippet engine
+      'hrsh7th/cmp-nvim-lsp', -- LSP completion source
+      'hrsh7th/cmp-buffer', -- Buffer words completion
+      'hrsh7th/cmp-path', -- File path completion
+      'hrsh7th/cmp-cmdline', -- Command-line completion
+      'L3MON4D3/LuaSnip', -- Snippet engine
       'saadparwaiz1/cmp_luasnip', -- Snippet completion
       'rafamadriz/friendly-snippets', -- Pre-made snippets
     },
@@ -396,7 +404,7 @@ return {
       require('lsp_signature').setup({
         bind = true,
         handler_opts = {
-          border = 'rounded'
+          border = 'rounded',
         },
         hint_enable = false, -- Disable virtual text hints (can be noisy)
       })
@@ -443,48 +451,48 @@ return {
 
       -- Register keybinding groups with descriptions
       wk.add({
-        { "<C-b>", desc = "Buffers" },
-        { "<leader>e", desc = "Explorer" },
-        { "<leader>s", group = "Search" },
-        { "<leader>sb", desc = "Search buffer" },
-        { "<leader>sd", desc = "Grep string" },
-        { "<leader>se", desc = "Split explorer (horizontal)" },
-        { "<leader>sh", desc = "Search help" },
-        { "<leader>so", desc = "Buffer tags" },
-        { "<leader>sp", desc = "Live grep word" },
-        { "<leader>st", desc = "Search tags" },
-        { "<leader>v", group = "Vertical" },
-        { "<leader>ve", desc = "Vertical explorer" },
-        { "<leader>b", desc = "Git blame" },
-        { "<leader>w", desc = "Write" },
-        { "<leader>W", desc = "Write all" },
-        { "<leader>f", desc = "Find word (Ripgrep)" },
-        { "<leader>F", desc = "Format buffer" },
-        { "<leader>g", group = "Git" },
-        { "<leader>gy", desc = "Copy git link" },
-        { "<leader>t", group = "Terminal" },
-        { "<leader>tv", desc = "Vertical terminal" },
-        { "<leader>th", desc = "Horizontal terminal" },
-        { "<leader>tf", desc = "Floating terminal" },
-        { "<leader>a", desc = "Code actions" },
-        { "<leader>ac", desc = "Code action (cursor)" },
-        { "<leader>rn", desc = "Rename symbol" },
-        { "<leader>qf", desc = "Quick fix" },
-        { "<leader>lf", desc = "Format (LSP)" },
-        { "<leader>x", group = "Diagnostics" },
-        { "<leader>xx", desc = "Diagnostics" },
-        { "<leader>xX", desc = "Buffer diagnostics" },
-        { "<leader>xL", desc = "Location list" },
-        { "<leader>xQ", desc = "Quickfix list" },
-        { "<space>s", desc = "Workspace symbols" },
-        { "<space>o", desc = "Document symbols" },
-        { "gd", desc = "Go to definition" },
-        { "gy", desc = "Go to type definition" },
-        { "gi", desc = "Go to implementation" },
-        { "gr", desc = "Go to references" },
-        { "K", desc = "Hover documentation" },
-        { "[d", desc = "Previous diagnostic" },
-        { "]d", desc = "Next diagnostic" },
+        { '<C-b>', desc = 'Buffers' },
+        { '<leader>e', desc = 'Explorer' },
+        { '<leader>s', group = 'Search' },
+        { '<leader>sb', desc = 'Search buffer' },
+        { '<leader>sd', desc = 'Grep string' },
+        { '<leader>se', desc = 'Split explorer (horizontal)' },
+        { '<leader>sh', desc = 'Search help' },
+        { '<leader>so', desc = 'Buffer tags' },
+        { '<leader>sp', desc = 'Live grep word' },
+        { '<leader>st', desc = 'Search tags' },
+        { '<leader>v', group = 'Vertical' },
+        { '<leader>ve', desc = 'Vertical explorer' },
+        { '<leader>b', desc = 'Git blame' },
+        { '<leader>w', desc = 'Write' },
+        { '<leader>W', desc = 'Write all' },
+        { '<leader>f', desc = 'Find word (Ripgrep)' },
+        { '<leader>F', desc = 'Format buffer' },
+        { '<leader>g', group = 'Git' },
+        { '<leader>gy', desc = 'Copy git link' },
+        { '<leader>t', group = 'Terminal' },
+        { '<leader>tv', desc = 'Vertical terminal' },
+        { '<leader>th', desc = 'Horizontal terminal' },
+        { '<leader>tf', desc = 'Floating terminal' },
+        { '<leader>a', desc = 'Code actions' },
+        { '<leader>ac', desc = 'Code action (cursor)' },
+        { '<leader>rn', desc = 'Rename symbol' },
+        { '<leader>qf', desc = 'Quick fix' },
+        { '<leader>lf', desc = 'Format (LSP)' },
+        { '<leader>x', group = 'Diagnostics' },
+        { '<leader>xx', desc = 'Diagnostics' },
+        { '<leader>xX', desc = 'Buffer diagnostics' },
+        { '<leader>xL', desc = 'Location list' },
+        { '<leader>xQ', desc = 'Quickfix list' },
+        { '<space>s', desc = 'Workspace symbols' },
+        { '<space>o', desc = 'Document symbols' },
+        { 'gd', desc = 'Go to definition' },
+        { 'gy', desc = 'Go to type definition' },
+        { 'gi', desc = 'Go to implementation' },
+        { 'gr', desc = 'Go to references' },
+        { 'K', desc = 'Hover documentation' },
+        { '[d', desc = 'Previous diagnostic' },
+        { ']d', desc = 'Next diagnostic' },
       })
     end,
   },
@@ -512,27 +520,27 @@ return {
 
       -- Buttons with key shortcuts
       dashboard.section.buttons.val = {
-        dashboard.button("e", "  New file", ":ene <BAR> startinsert<CR>"),
-        dashboard.button("SPC SPC", "  Find file", ":Telescope find_files<CR>"),
-        dashboard.button("SPC f g", "  Live grep", ":Telescope live_grep<CR>"),
-        dashboard.button("c", "  Configuration", ":e $MYVIMRC<CR>"),
-        dashboard.button("u", "  Update plugins", ":Lazy sync<CR>"),
-        dashboard.button("q", "  Quit", ":qa<CR>"),
+        dashboard.button('e', '  New file', ':ene <BAR> startinsert<CR>'),
+        dashboard.button('SPC SPC', '  Find file', ':Telescope find_files<CR>'),
+        dashboard.button('SPC f g', '  Live grep', ':Telescope live_grep<CR>'),
+        dashboard.button('c', '  Configuration', ':e $MYVIMRC<CR>'),
+        dashboard.button('u', '  Update plugins', ':Lazy sync<CR>'),
+        dashboard.button('q', '  Quit', ':qa<CR>'),
       }
 
       -- Footer with keybinding tips
       dashboard.section.footer.val = {
-        "",
-        "Quick Reference:",
-        "",
-        "Ctrl+n   Find files      |  Ctrl+p   Recent files",
-        "Ctrl+\\   Terminal        |  Leader   Show all shortcuts",
-        "",
-        "gd       Go to def       |  gr       Go to references",
-        "Leader+a Code actions    |  Leader+rn Rename",
-        "Leader+F Format          |  Leader+g  Git",
-        "",
-        "Press <Leader> or <Space> to see all keybindings!",
+        '',
+        'Quick Reference:',
+        '',
+        'Ctrl+n   Find files      |  Ctrl+p   Recent files',
+        'Ctrl+\\   Terminal        |  Leader   Show all shortcuts',
+        '',
+        'gd       Go to def       |  gr       Go to references',
+        'Leader+a Code actions    |  Leader+rn Rename',
+        'Leader+F Format          |  Leader+g  Git',
+        '',
+        'Press <Leader> or <Space> to see all keybindings!',
       }
 
       -- Apply theme
@@ -559,27 +567,27 @@ return {
       { '<leader>gy', mode = { 'n', 'v' }, desc = 'Copy git link' },
     },
     config = function()
-      require"gitlinker".setup({
+      require 'gitlinker'.setup({
         opts = {
           remote = nil,
           add_current_line_on_normal_mode = true,
-          action_callback = require"gitlinker.actions".copy_to_clipboard,
+          action_callback = require 'gitlinker.actions'.copy_to_clipboard,
           print_url = true,
         },
         callbacks = {
-          ["github.com"] = require"gitlinker.hosts".get_github_type_url,
-          ["gitlab.com"] = require"gitlinker.hosts".get_gitlab_type_url,
-          ["try.gitea.io"] = require"gitlinker.hosts".get_gitea_type_url,
-          ["codeberg.org"] = require"gitlinker.hosts".get_gitea_type_url,
-          ["bitbucket.org"] = require"gitlinker.hosts".get_bitbucket_type_url,
-          ["try.gogs.io"] = require"gitlinker.hosts".get_gogs_type_url,
-          ["git.sr.ht"] = require"gitlinker.hosts".get_srht_type_url,
-          ["git.launchpad.net"] = require"gitlinker.hosts".get_launchpad_type_url,
-          ["repo.or.cz"] = require"gitlinker.hosts".get_repoorcz_type_url,
-          ["git.kernel.org"] = require"gitlinker.hosts".get_cgit_type_url,
-          ["git.savannah.gnu.org"] = require"gitlinker.hosts".get_cgit_type_url
+          ['github.com'] = require 'gitlinker.hosts'.get_github_type_url,
+          ['gitlab.com'] = require 'gitlinker.hosts'.get_gitlab_type_url,
+          ['try.gitea.io'] = require 'gitlinker.hosts'.get_gitea_type_url,
+          ['codeberg.org'] = require 'gitlinker.hosts'.get_gitea_type_url,
+          ['bitbucket.org'] = require 'gitlinker.hosts'.get_bitbucket_type_url,
+          ['try.gogs.io'] = require 'gitlinker.hosts'.get_gogs_type_url,
+          ['git.sr.ht'] = require 'gitlinker.hosts'.get_srht_type_url,
+          ['git.launchpad.net'] = require 'gitlinker.hosts'.get_launchpad_type_url,
+          ['repo.or.cz'] = require 'gitlinker.hosts'.get_repoorcz_type_url,
+          ['git.kernel.org'] = require 'gitlinker.hosts'.get_cgit_type_url,
+          ['git.savannah.gnu.org'] = require 'gitlinker.hosts'.get_cgit_type_url,
         },
-        mappings = "<leader>gy"
+        mappings = '<leader>gy',
       })
     end,
   },
@@ -603,13 +611,13 @@ return {
       { '<leader>tf', desc = 'Floating terminal' },
     },
     config = function()
-      require("toggleterm").setup({
+      require('toggleterm').setup({
         -- Dynamic size based on direction
         size = function(term)
-          if term.direction == "horizontal" then
-            return 15  -- 15 lines tall
-          elseif term.direction == "vertical" then
-            return math.floor(vim.o.columns * 0.4)  -- 40% of screen width
+          if term.direction == 'horizontal' then
+            return 15 -- 15 lines tall
+          elseif term.direction == 'vertical' then
+            return math.floor(vim.o.columns * 0.4) -- 40% of screen width
           end
         end,
         open_mapping = [[<C-\>]],
@@ -633,7 +641,7 @@ return {
 
       -- Terminal navigation keymaps
       function _G.set_terminal_keymaps()
-        local opts = {buffer = 0}
+        local opts = { buffer = 0 }
         vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
         vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
         vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)

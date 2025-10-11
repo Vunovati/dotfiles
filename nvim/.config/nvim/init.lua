@@ -1,25 +1,22 @@
--- inspired by https://tkg.codes/guide-to-modern-neovim-setup-2021/
---
 -- GENERAL SETTINGS
 -- Dependencies
 
 -- Load lazy.nvim plugin manager (replaces Packer)
-require("config.lazy")
+require('config.lazy')
 
-require("keybindings")
+require('keybindings')
 
 -- LSP & Completion (Native Neovim LSP)
-require("config.lsp")  -- LSP server configurations and keybindings
-require("config.cmp")  -- nvim-cmp completion setup
+require('config.lsp') -- LSP server configurations and keybindings
+require('config.cmp') -- nvim-cmp completion setup
 
 -- Plugin configs are now managed by lazy.nvim in lua/plugins/init.lua
 
 -- Make sure Tiltfile is recognized
-vim.api.nvim_create_autocmd({"BufRead"}, {
-  pattern = {"Tiltfile"},
-  command = "set filetype=tiltfile",
+vim.api.nvim_create_autocmd({ 'BufRead' }, {
+  pattern = { 'Tiltfile' },
+  command = 'set filetype=tiltfile',
 })
-
 
 -- Incremental live completion
 vim.o.inccommand = 'nosplit'
@@ -69,11 +66,11 @@ vim.api.nvim_exec(
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 
 -- Set dark theme if macOS theme is dark, light otherwise.
-local theme = vim.fn.system("defaults read -g AppleInterfaceStyle")
-if (string.find(theme, 'Dark')) then
-	vim.o.background = 'dark'
-	vim.cmd [[colorscheme catppuccin-mocha]]
+local theme = vim.fn.system('defaults read -g AppleInterfaceStyle')
+if string.find(theme, 'Dark') then
+  vim.o.background = 'dark'
+  vim.cmd [[colorscheme catppuccin-mocha]]
 else
-	vim.o.background = 'light'
-	vim.cmd [[colorscheme catppuccin-latte]]
+  vim.o.background = 'light'
+  vim.cmd [[colorscheme catppuccin-latte]]
 end

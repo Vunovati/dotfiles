@@ -1,13 +1,13 @@
 -- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
+      { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+      { out, 'WarningMsg' },
+      { '\nPress any key to exit...' },
     }, true, {})
     vim.fn.getchar()
     os.exit(1)
@@ -23,16 +23,16 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 -- Load plugin specs
-local plugin_specs = require("plugins")
+local plugin_specs = require('plugins')
 
-require("lazy").setup({
+require('lazy').setup({
   spec = plugin_specs,
   -- Install colorscheme used during installation
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { 'catppuccin' } },
   -- Automatically check for plugin updates (set to true to enable periodic checks)
   checker = { enabled = false },
   -- UI settings
   ui = {
-    border = "rounded",
+    border = 'rounded',
   },
 })
