@@ -1,0 +1,24 @@
+name: Neovim Lua Format Check
+
+on:
+  pull_request:
+    paths:
+      - 'nvim/**/*.lua'
+  push:
+    branches: [main, master]
+    paths:
+      - 'nvim/**/*.lua'
+
+jobs:
+  stylua:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install stylua
+        run: |
+          wget -qO- https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip | funzip > stylua
+          chmod +x stylua
+
+      - name: Check Lua formatting
+        run: ./stylua --check --config-path nvim/.config/nvim/.stylua.toml nvim/

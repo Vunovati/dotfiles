@@ -22,8 +22,15 @@ vim.diagnostic.config({
     prefix = '●', -- Could be '■', '▎', 'x', '●'
     source = 'if_many', -- Show source if multiple sources
   },
-  -- Show diagnostics in sign column (left gutter)
-  signs = true,
+  -- Show diagnostics in sign column (left gutter) with custom icons
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.HINT] = ' ',
+      [vim.diagnostic.severity.INFO] = ' ',
+    },
+  },
   -- Underline problematic code
   underline = true,
   -- Update diagnostics while typing (vs only on save)
@@ -41,29 +48,16 @@ vim.diagnostic.config({
   },
 })
 
--- Define diagnostic signs (icons in the sign column)
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
 -- ============================================================================
 -- LSP HANDLERS
 -- Customize how LSP UI elements are displayed
 -- ============================================================================
 
 -- Hover window with border
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = "rounded" }
-)
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 
 -- Signature help window with border
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  { border = "rounded" }
-)
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
 
 -- ============================================================================
 -- LSP KEYBINDINGS
@@ -256,7 +250,7 @@ M.server_configs = {
     settings = {
       yaml = {
         schemas = {
-          ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+          ['https://json.schemastore.org/github-workflow.json'] = '/.github/workflows/*',
         },
       },
     },

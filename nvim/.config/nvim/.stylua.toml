@@ -1,0 +1,18 @@
+# StyLua configuration
+# Matches existing Lua formatting style in nvim dotfiles
+
+# Use 2 spaces for indentation (current style)
+indent_type = "Spaces"
+indent_width = 2
+
+# Use single quotes for strings (current style)
+quote_style = "AutoPreferSingle"
+
+# Line width ~120 characters (current style allows some flexibility)
+column_width = 120
+
+# Call parentheses - preserve existing style
+call_parentheses = "Input"
+
+# Collapse simple statements/expressions (maintains readability)
+collapse_simple_statement = "Never"

@@ -1,0 +1,7 @@
+repos:
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v0.20.0
+    hooks:
+      - id: stylua
+        args: [--check, --config-path, nvim/.config/nvim/.stylua.toml]
+        files: ^nvim/.*\.lua$  # Only check Lua files in nvim directory
