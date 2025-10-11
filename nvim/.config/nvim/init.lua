@@ -2,21 +2,26 @@
 --
 -- GENERAL SETTINGS
 -- Dependencies
-require("plugins")
+
+-- Load lazy.nvim plugin manager (replaces Packer)
+require("config.lazy")
+
 require("keybindings")
-require("lsp")
 
--- Plugin specific configs.
-require("plugs.treesitter")
-require("plugs.cmp")
-require("plugs.telescope")
-require("plugs.gitsigns")
-require("plugs.null-ls")
-require("plugs.formatter")
-require("plugs.react-extract")
-require("plugs.gitlinker")
+-- LSP & Completion (Native Neovim LSP)
+require("config.lsp")  -- LSP server configurations and keybindings
+require("config.cmp")  -- nvim-cmp completion setup
 
--- Incremental live completion (note: this is now a default on master).
+-- Plugin configs are now managed by lazy.nvim in lua/plugins/init.lua
+
+-- Make sure Tiltfile is recognized
+vim.api.nvim_create_autocmd({"BufRead"}, {
+  pattern = {"Tiltfile"},
+  command = "set filetype=tiltfile",
+})
+
+
+-- Incremental live completion
 vim.o.inccommand = 'nosplit'
 
 -- Set highlight on search. This will remove the highlight after searching for text.
@@ -26,7 +31,7 @@ vim.o.hlsearch = false
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- Do not save when switching buffers (note: default on master).
+-- Do not save when switching buffers
 vim.o.hidden = true
 
 -- Enable break indent.
@@ -45,16 +50,9 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme defaults (order is important here).
 vim.o.termguicolors = true
--- vim.g.onedark_terminal_italics = 2
--- vim.o.background = 'light'
--- vim.cmd [[colorscheme PaperColor]]
 
--- Set status bar settings
--- vim.g.lightline = {
---   colorscheme = 'PaperColor',
---   active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
---   component_function = { gitbranch = 'FugitiveHead' },
--- }
+-- mode already in lualine
+vim.opt.showmode = false
 
 -- Highlight on yank (copy). It will do a nice highlight blink of the thing you just copied.
 vim.api.nvim_exec(
@@ -67,7 +65,7 @@ vim.api.nvim_exec(
   false
 )
 
--- Y yank until the end of line  (note: this is now a default on master)
+-- Y yank until the end of line (consistent with D and C behavior)
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 
 -- Set dark theme if macOS theme is dark, light otherwise.
@@ -78,8 +76,4 @@ if (string.find(theme, 'Dark')) then
 else
 	vim.o.background = 'light'
 	vim.cmd [[colorscheme catppuccin-latte]]
-	-- vim.cmd [[colorscheme PaperColor]]
 end
-
-
--- vim.api.nvim_set_keymap('n', '<leader>mm', [[<Cmd>lua require('material.functions').toggle_style()<CR>]], { noremap = true, silent = true })
