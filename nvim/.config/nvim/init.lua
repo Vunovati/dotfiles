@@ -66,8 +66,24 @@ vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
 local theme = vim.fn.system('defaults read -g AppleInterfaceStyle')
 if string.find(theme, 'Dark') then
   vim.o.background = 'dark'
-  vim.cmd [[colorscheme catppuccin-mocha]]
+  vim.cmd([[colorscheme catppuccin-mocha]])
 else
   vim.o.background = 'light'
-  vim.cmd [[colorscheme catppuccin-latte]]
+  vim.cmd([[colorscheme catppuccin-latte]])
 end
+
+-- Manual theme toggle function
+function ToggleTheme()
+  if vim.o.background == 'dark' then
+    vim.o.background = 'light'
+    vim.cmd([[colorscheme catppuccin-latte]])
+    print('Switched to light theme')
+  else
+    vim.o.background = 'dark'
+    vim.cmd([[colorscheme catppuccin-mocha]])
+    print('Switched to dark theme')
+  end
+end
+
+-- Keybinding to toggle theme: <leader>tt
+vim.keymap.set('n', '<leader>tt', ToggleTheme, { noremap = true, silent = true, desc = 'Toggle theme' })
