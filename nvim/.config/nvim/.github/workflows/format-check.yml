@@ -1,0 +1,20 @@
+name: Format Check
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  stylua:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install stylua
+        run: |
+          wget -qO- https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip | funzip > stylua
+          chmod +x stylua
+
+      - name: Check Lua formatting
+        run: ./stylua --check .
