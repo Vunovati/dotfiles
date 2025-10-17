@@ -10,6 +10,19 @@ require('keybindings')
 require('config.lsp') -- LSP server configurations and keybindings
 require('config.cmp') -- nvim-cmp completion setup
 
+-- Ensure LSP keybindings are set up when LSP attaches
+-- This autocmd catches LSP attachment and manually applies our keybindings
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    local lsp_config = require('config.lsp')
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client then
+      lsp_config.on_attach(client, ev.buf)
+    end
+  end,
+})
+
 -- Plugin configs are now managed by lazy.nvim in lua/plugins/init.lua
 
 -- Make sure Tiltfile is recognized

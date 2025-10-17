@@ -72,8 +72,25 @@ M.on_attach = function(client, bufnr)
   -- ========================
   -- Go To Navigation
   -- ========================
-  -- Go to definition (CoC: gd)
-  keymap('n', 'gd', vim.lsp.buf.definition, vim.tbl_extend('force', opts, { desc = 'Go to definition' }))
+  -- Go to definition with fallback to implementation (CoC: gd)
+  keymap('n', 'gd', function()
+    -- Try definition first
+    local params = vim.lsp.util.make_position_params()
+    vim.lsp.buf_request(0, 'textDocument/definition', params, function(err, result)
+      -- If error or no definition found, fall back to implementation
+      if err or not result or vim.tbl_isempty(result) then
+        -- Fall back to implementation
+        vim.lsp.buf.implementation()
+      else
+        -- Jump to definition
+        if vim.tbl_islist(result) then
+          vim.lsp.util.jump_to_location(result[1], 'utf-8')
+        else
+          vim.lsp.util.jump_to_location(result, 'utf-8')
+        end
+      end
+    end)
+  end, vim.tbl_extend('force', opts, { desc = 'Go to definition (fallback to implementation)' }))
 
   -- Go to type definition (CoC: gy)
   keymap('n', 'gy', vim.lsp.buf.type_definition, vim.tbl_extend('force', opts, { desc = 'Go to type definition' }))
